@@ -8,6 +8,7 @@ window.AppI18N = (function () {
 
   var DICT = {
     zh: {
+      brand: '群星闪耀',
       nav_people: '人物', nav_timeline: '时间线', nav_about: '关于',
       theme_title: '切换深浅色',
       search_ph: '搜索人物、领域或关键词…', search_aria: '搜索人物',
@@ -38,6 +39,7 @@ window.AppI18N = (function () {
       cat_art: '艺术家', cat_human: '人道主义者'
     },
     en: {
+      brand: 'World Shapers',
       nav_people: 'People', nav_timeline: 'Timeline', nav_about: 'About',
       theme_title: 'Toggle light / dark theme',
       search_ph: 'Search people, fields or keywords…', search_aria: 'Search people',

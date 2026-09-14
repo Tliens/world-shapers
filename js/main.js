@@ -76,6 +76,8 @@
     document.documentElement.setAttribute('lang', LANG === 'en' ? 'en' : 'zh-CN');
     document.title = t.title;
 
+    document.querySelector('.brand').innerHTML =
+      '<span class="brand-star">✦</span>' + t.brand;
     document.querySelector('.nav a[href="#explore"]').textContent = t.nav_people;
     $('#nav-timeline').textContent = t.nav_timeline;
     document.querySelector('.nav a[href="#about"]').textContent = t.nav_about;
