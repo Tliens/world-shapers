@@ -574,6 +574,25 @@ button { font-family: inherit; cursor: pointer; }
 
 .m-desc p { margin: 0 0 12px; }
 
+.m-highlights { margin: 0 0 18px; }
+
+.m-highlights h4 {
+  font-family: var(--serif); font-size: 14px; color: var(--gold);
+  letter-spacing: 0.05em; margin-bottom: 8px;
+}
+
+.m-highlights ul { list-style: none; }
+
+.m-highlights li {
+  font-size: 14px; line-height: 1.8; color: color-mix(in srgb, var(--ink) 85%, var(--muted));
+  padding-left: 18px; position: relative;
+}
+
+.m-highlights li::before {
+  content: "✦"; position: absolute; left: 0; top: 0;
+  font-size: 10px; color: var(--gold); opacity: 0.85;
+}
+
 .m-quote {
   position: relative;
   background: color-mix(in srgb, var(--gold) 8%, transparent);

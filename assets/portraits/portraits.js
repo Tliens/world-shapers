@@ -275,5 +275,137 @@ window.PORTRAITS = {
   "malala": {
     "src": "assets/portraits/malala.jpg",
     "credit": "Wikimedia Commons"
+  },
+  "euler": {
+    "src": "assets/portraits/euler.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "gauss": {
+    "src": "assets/portraits/gauss.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "vonneumann": {
+    "src": "assets/portraits/vonneumann.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "shannon": {
+    "src": "assets/portraits/shannon.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "schrodinger": {
+    "src": "assets/portraits/schrodinger.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "hubble": {
+    "src": "assets/portraits/hubble.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "qianxuesen": {
+    "src": "assets/portraits/qianxuesen.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "yuanlongping": {
+    "src": "assets/portraits/yuanlongping.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "mozi": {
+    "src": "assets/portraits/mozi.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "wangyangming": {
+    "src": "assets/portraits/wangyangming.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "augustine": {
+    "src": "assets/portraits/augustine.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "aquinas": {
+    "src": "assets/portraits/aquinas.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "voltaire": {
+    "src": "assets/portraits/voltaire.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "rousseau": {
+    "src": "assets/portraits/rousseau.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "luban": {
+    "src": "assets/portraits/luban.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "stephenson": {
+    "src": "assets/portraits/stephenson.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "constantine": {
+    "src": "assets/portraits/constantine.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "tangtaizong": {
+    "src": "assets/portraits/tangtaizong.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "churchill": {
+    "src": "assets/portraits/churchill.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "elizabethi": {
+    "src": "assets/portraits/elizabethi.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "fdr": {
+    "src": "assets/portraits/fdr.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "magellan": {
+    "src": "assets/portraits/magellan.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "dagama": {
+    "src": "assets/portraits/dagama.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "amundsen": {
+    "src": "assets/portraits/amundsen.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "raphael": {
+    "src": "assets/portraits/raphael.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "dufu": {
+    "src": "assets/portraits/dufu.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "andersen": {
+    "src": "assets/portraits/andersen.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "beatles": {
+    "src": "assets/portraits/beatles.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "chaplin": {
+    "src": "assets/portraits/chaplin.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "bethune": {
+    "src": "assets/portraits/bethune.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "yunus": {
+    "src": "assets/portraits/yunus.jpg",
+    "credit": "Wikimedia Commons"
+  },
+  "goodall": {
+    "src": "assets/portraits/goodall.jpg",
+    "credit": "Wikimedia Commons"
+  }
+  ,"zhangheng": {
+    "src": "assets/portraits/zhangheng.jpg",
+    "credit": "Wikimedia Commons"
   }
 };

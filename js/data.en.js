@@ -476,5 +476,251 @@ window.PEOPLE_EN = [
     summary: 'Shot for going to school, she became the youngest Nobel laureate ever',
     desc: 'Born in Pakistan\u2019s Swat Valley, she began writing a BBC blog at eleven under a pen name, recording life under Taliban rule where girls were banned from school — and the world took notice. On 9 October 2012 a Taliban gunman boarded her school bus and shot her in the head at point-blank range. She survived, after treatment in Britain, and did not go quiet.\nOn her sixteenth birthday she spoke at the United Nations: "One child, one teacher, one book, one pen can change the world." With her father she founded the Malala Fund, campaigning for twelve years of free schooling for every girl. In 2014, at seventeen, she became the youngest Nobel laureate in history, sharing the Peace Prize. She has since graduated from Oxford — and her question still echoes: "They say the pen is mightier than the sword — what if the one holding the pen is silenced first?"',
     quote: 'One child, one teacher, one book and one pen can change the world.'
+  },
+
+  /* ============ Second batch (69 → 102) ============ */
+  /* ---- Scientists ---- */
+  {
+    id: 'euler', name: 'Leonhard Euler', alt: '欧拉', years: '1707–1783',
+    field: 'Mathematician · Physicist',
+    summary: 'The most prolific mathematician in history — he wrote the language of modern maths',
+    desc: 'Euler produced some 850 works, so fast that the printers could not keep up — and after going blind he remained just as prolific, computing in his head. The notation of every maths textbook is largely his: f(x), the base e, π, the imaginary unit i, the summation sign Σ.\nHe founded analysis and graph theory (the Königsberg bridges) and the calculus of variations, turning calculus into a systematic discipline; his identity e^{iπ}+1=0 is called the most beautiful equation in mathematics. Serving the academies of St Petersburg and Berlin, he applied mathematics to shipbuilding, astronomy and artillery. Laplace said: "Read Euler, read Euler — he is the master of us all."',
+    wiki: 'en/Leonhard Euler'
+  },
+  {
+    id: 'gauss', name: 'Carl Friedrich Gauss', alt: '高斯', years: '1777–1855',
+    field: 'Mathematician · Astronomer · Physicist',
+    summary: 'The "Prince of Mathematicians" — number theory, statistics and geodesy',
+    desc: 'The son of a Brunswick bricklayer, he corrected his father\u2019s accounts at three, and at nineteen constructed the 17-sided regular polygon with compass and straightedge — solving a two-thousand-year-old problem — and resolved to devote his life to mathematics. His Disquisitiones Arithmeticae founded modern number theory; least squares, the normal (Gaussian) distribution, pioneering ideas of non-Euclidean geometry and the unit of magnetic flux all carry his name.\nHis orbital computation relocated the lost asteroid Ceres and awed Europe\u2019s academies; late in life he directed the survey of Hanover and, with Wilhelm Weber, built the world\u2019s first electromagnetic telegraph. He ranks with Archimedes and Newton as one of the three greatest mathematicians who ever lived.',
+    quote: 'Mathematics is the queen of the sciences, and number theory is the queen of mathematics.'
+  },
+  {
+    id: 'vonneumann', name: 'John von Neumann', alt: '冯·诺依曼', years: '1903–1957',
+    field: 'Mathematician · Computer scientist',
+    summary: 'The von Neumann architecture and game theory — the brain behind the computer age',
+    desc: 'The Budapest prodigy could divide eight-digit numbers in his head at six, and went on to lay foundations in set theory, the mathematics of quantum mechanics and operator theory. He founded game theory (with Morgenstern — the "prisoner\u2019s dilemma" is his) and worked on the Manhattan Project, computing the implosion of the plutonium bomb.\nIn 1945 his "First Draft of a Report on the EDVAC" defined the stored-program architecture — processor, memory, control, input and output — and every computer and phone today is still called a von Neumann machine. He died of cancer at 53, dictating "The Computer and the Brain" from his hospital bed.',
+    wiki: 'en/John von Neumann'
+  },
+  {
+    id: 'shannon', name: 'Claude Shannon', alt: '香农', years: '1916–2001',
+    field: 'Mathematician · Engineer',
+    summary: 'The father of information theory — he measured the world in bits',
+    desc: 'In 1938, aged 22, Shannon proved in his master\u2019s thesis that Boolean algebra could be implemented with relay circuits — the theoretical foundation of all digital electronics. In 1948 his "A Mathematical Theory of Communication" created information theory: information can be measured in bits, every channel has a capacity limit, and codes can push through it — the entire theory of compression, error correction and encryption flows from that one paper.\nFor fun he built Theseus, a maze-solving mechanical mouse, and a juggling robot — early heralds of artificial intelligence. From mobile networks to deep-space probes, from ZIP files to QR codes, every transmission of the digital age lives inside the boundaries he drew.',
+    wiki: 'en/Claude Shannon'
+  },
+  {
+    id: 'schrodinger', name: 'Erwin Schrödinger', alt: '薛定谔', years: '1887–1961',
+    field: 'Physicist',
+    summary: 'His wave equation describes the atom — and the cat is still both dead and alive',
+    desc: 'Over the 1925 Christmas holidays, the Viennese physicist wrote down the wave equation that bears his name — the cornerstone describing how electrons behave in atoms — which, with Heisenberg\u2019s matrix mechanics, forms the twin formulation of quantum theory. He shared the 1933 Nobel Prize with Paul Dirac.\nHis "Schrödinger\u2019s cat" thought experiment exposed the fault line between quantum superposition and the macroscopic world through a cat that is somehow both dead and alive — still the centre of physical and philosophical debate. Late in life his little book "What is Life?" proposed that genes are an "aperiodic crystal", directly inspiring Watson and Crick to hunt down the secret of DNA.',
+    wiki: 'en/Erwin Schrödinger'
+  },
+  {
+    id: 'hubble', name: 'Edwin Hubble', alt: '哈勃', years: '1889–1953',
+    field: 'Astronomer',
+    summary: 'Found galaxies beyond the Milky Way — and gave the universe a history',
+    desc: 'In 1924, using the 2.5-metre telescope on Mount Wilson, Hubble located Cepheid variable stars in Andromeda and proved it was another galaxy far beyond the Milky Way — the universe expanded overnight from one galaxy to billions. In 1929 he showed that the farther a galaxy lies, the faster it recedes: the universe is expanding — the direct observational pillar of the Big Bang theory.\nEinstein revised the cosmological constant in general relativity in response, calling it his "biggest blunder". The Hubble Space Telescope is named for him — humanity\u2019s eye in orbit. He turned cosmology from speculation into measurement.',
+    quote: 'Equipped with his five senses, man explores the universe around him and calls the adventure Science.'
+  },
+  {
+    id: 'qianxuesen', name: 'Qian Xuesen', alt: '钱学森', years: '1911–2009',
+    field: 'Scientist · Founder of engineering cybernetics',
+    summary: 'The founder of China\u2019s rocket and missile programmes — "worth five divisions"',
+    desc: 'Trained at Jiaotong University, MIT and Caltech, he was a genius of aerodynamics who co-authored the "Kármán–Tsien formula" with his mentor Theodor von Kármán and co-founded the Jet Propulsion Laboratory. In 1950 he set out for home and was detained in America for five years; US Undersecretary of the Navy Dan Kimball said he was "worth five divisions anywhere".\nBack in China in 1955 he drafted the country\u2019s rocket and missile plans, led the missile and space parts of the "Two Bombs, One Satellite" programme and founded engineering cybernetics. China\u2019s first missile and first satellite, Dong Fang Hong I, both bore his imprint. He was awarded the medal of the "Two Bombs, One Satellite" merit and is called the father of China\u2019s space programme.',
+    wiki: 'zh/钱学森'
+  },
+  {
+    id: 'yuanlongping', name: 'Yuan Longping', alt: '袁隆平', years: '1930–2021',
+    field: 'Agronomist · Father of hybrid rice',
+    summary: 'Hybrid rice steadied the rice bowls of China and the world',
+    desc: 'In 1961 he found a "natural hybrid" rice plant in the paddy of his agricultural school in Hunan, and set out to exploit hybrid vigour in rice — which classical theory said was impossible for a self-pollinating crop. After six years of searching his team found the wild male-sterile rice plant "Ye Bai" on Hainan in 1970, and hybrid rice was born; from 1976 it spread across China\u2019s fields.\nHis teams went on to two-line hybrids and ever-higher "super rice" yields, helping China feed nearly 20% of the world\u2019s population on 7% of its arable land; the seed has been grown in dozens of countries. He spoke of two dreams: "resting in the shade of rice plants taller than men" and "hybrid rice covering the globe". Awarded the Medal of the Republic in 2019, he was mourned by a hundred thousand people in the streets of Changsha in 2021.',
+    quote: 'My lifelong pursuit is to keep everyone away from hunger.'
+  },
+
+  /* ---- Thinkers ---- */
+  {
+    id: 'mozi', name: 'Mozi', alt: '墨子', years: 'c. 468–376 BC',
+    field: 'Philosopher · Scientist',
+    summary: 'Universal love and defensive war — ancient China\u2019s closest school to science',
+    desc: 'Mo Di, born a craftsman, studied under the Confucians before founding his own school. The Mohists were organised like an army: they taught "universal love" (caring without distinction), "condemnation of offensive war" and "elevation of the worthy" regardless of birth. When Chu marched on Song, Mozi walked ten days to debate the master engineer Gongshu Ban, then garrisoned Song with his disciples — and the invasion was called off without a fight.\nThe Mohists\u2019 science is startling: the Mo Jing records the camera obscura, the lever principle, definitions of force, space and time, and a system of logic — the closest ancient China came to the scientific method. The school died out after the Han and was only rediscovered in Qing times; China named its quantum satellite "Micius" in his honour.',
+    quote: 'Love one another universally; benefit one another mutually.'
+  },
+  {
+    id: 'wangyangming', name: 'Wang Yangming', alt: '王阳明', years: '1472–1529',
+    field: 'Philosopher · Founder of the School of Mind',
+    summary: 'The unity of knowledge and action — a school of thought that shaped East Asia',
+    desc: 'Wang Shouren "investigated bamboo" for seven days under Zhu Xi\u2019s doctrine of seeking principles in things, fell ill, and began to doubt. Exiled to the wilds of Longchang in Guizhou for defending a censor, he awoke one night with the insight: "The way of the sage is complete within my own nature" — the Longchang Enlightenment. He taught that the mind is principle, that knowledge and action are one, and in his last years distilled it all into "extending innate knowing", relocating the ground of morality from the classics into every heart.\nHe was no armchair philosopher: he crushed the Prince of Ning\u2019s rebellion in thirty-five days, winning battles while being distrusted at court. His School of Mind flowed through late-Ming thought and the reformers of Japan\u2019s Meiji Restoration — the admiral Tōgō Heihachirō carried a seal reading "I bow my head all my life to Yangming."',
+    quote: 'Knowledge is the beginning of action; action is the completion of knowledge.'
+  },
+  {
+    id: 'augustine', name: 'Augustine of Hippo', alt: '奥古斯丁', years: '354–430',
+    field: 'Theologian · Philosopher',
+    summary: 'The Confessions and The City of God shaped the Western mind for 1,500 years',
+    desc: 'Born in North Africa, the young Augustine embraced Manichaeism and the pursuit of fame, while his mother Monica prayed for him for half her life. In Milan the preaching of Bishop Ambrose converted him, and the Confessions — the world\u2019s first autobiography — dissected his own soul with unprecedented inwardness, founding the whole Western tradition of self-examination.\nAs Bishop of Hippo for thirty-five years he wrote The City of God, On the Trinity and more, answering the pagans who blamed Christianity for the sack of Rome, and formulating doctrines of original sin, grace and time: "What then is time? If no one asks me, I know; if I wish to explain it, I do not know." Reformers and Roman Catholics alike drew on him — no Western theology or philosophy can get around Augustine.',
+    quote: 'Our heart is restless until it rests in you.'
+  },
+  {
+    id: 'aquinas', name: 'Thomas Aquinas', alt: '阿奎那', years: '1225–1274',
+    field: 'Theologian · Philosopher',
+    summary: 'Married faith to reason — the summit of medieval scholasticism',
+    desc: 'Son of an Italian count, he joined the Dominican order at nineteen, and his family kidnapped him for a year to change his mind. Studying under Albert the Great in Cologne, his silence earned him the nickname "the dumb Sicilian ox" — and his teacher replied: "This ox\u2019s bellow will be heard around the world."\nHis Summa Theologiae poses thousands of questions in tens of thousands of arguments, fusing the rational system of Aristotle with Christian doctrine: faith and reason do not conflict, and grace perfects nature without destroying it. His "five ways" argued for God\u2019s existence by reason; his natural-law thinking is a distant ancestor of modern human rights. Thomism remains the official philosophy of the Catholic Church.',
+    quote: 'Grace does not destroy nature but perfects it.'
+  },
+  {
+    id: 'voltaire', name: 'Voltaire', alt: '伏尔泰', years: '1694–1778',
+    field: 'Enlightenment thinker · Writer',
+    summary: 'The sword-arm of the Enlightenment — a lifelong fighter for tolerance and free speech',
+    desc: 'Born François-Marie Arouet, he was twice locked in the Bastille for satirising the powerful and exiled himself to England for three years, returning to preach Newton, Locke and English liberty. Across plays, epics, novels and letters — Candide skewering the doctrine that "all is for the best" — he hammered at superstition and fanaticism.\nHis most enduring battles were for the persecuted: in the Calas affair he fought three years to clear a Protestant executed on false charges, and "crush the infamous" became the slogan of the Enlightenment. Crowned the "king of French thought", he was carried into the Panthéon in 1791. His most quoted line (actually his biographer\u2019s summary): "I disapprove of what you say, but I will defend to the death your right to say it."',
+    quote: 'I disapprove of what you say, but I will defend to the death your right to say it.'
+  },
+  {
+    id: 'rousseau', name: 'Jean-Jacques Rousseau', alt: '卢梭', years: '1712–1778',
+    field: 'Philosopher · Writer',
+    summary: 'The Social Contract lit the French Revolution — "man is born free"',
+    desc: 'The son of a Geneva watchmaker and a wanderer for half his life, Rousseau had his revelation on the road to visit Diderot in prison, reading the Académie\u2019s essay question: his First Discourse argued that progress in the sciences and arts had corrupted morals; the Second Discourse traced inequality to private property. The Social Contract opens with the most famous sentence of the century — "Man is born free, and everywhere he is in chains" — and builds the doctrine of popular sovereignty and the general will.\nÉmile revolutionised education; the Confessions, with astonishing candour, invented the modern autobiography. His thought fed the French Revolution directly — the Declaration of the Rights of Man and the Jacobins claimed him — and romanticism, modern pedagogy and democratic theory all set out from his door.',
+    quote: 'Man is born free, and everywhere he is in chains.'
+  },
+
+  /* ---- Inventors ---- */
+  {
+    id: 'luban', name: 'Lu Ban', alt: '鲁班', years: 'c. 507–444 BC',
+    field: 'Inventor · Master craftsman',
+    summary: 'Saw, square, siege ladder — the patron saint of Chinese craftsmen',
+    desc: 'Born Gongshu Ban in the state of Lu to a family of craftsmen, legend says a grass blade slashed his hand as he climbed a mountain to fell timber — and the serrated edge inspired his invention of the saw. The carpenter\u2019s square (the "Lu Ban ruler"), the ink marker, the plane, the drill and the shovel, plus the siege ladders and naval hooks of war, are all credited to him; folk tales add a wooden bird that flew for three days.\nHis inventions systematised Chinese woodworking, and for two thousand years carpenters, masons and stonemasons have honoured him as their founding master — the idiom "showing off with the axe before Lu Ban\u2019s door" is a tribute. China\u2019s top award for building quality is named the Lu Ban Prize: one craftsman became the god of the whole trade.',
+    wiki: 'zh/鲁班'
+  },
+  {
+    id: 'zhangheng', name: 'Zhang Heng', alt: '张衡', years: '78–139',
+    field: 'Scientist · Inventor · Writer',
+    summary: 'The seismoscope and the armillary sphere — a Renaissance man 1,300 years early',
+    desc: 'A native of Nanyang who twice served as Grand Astronomer-Royal, Zhang Heng championed the "huntian" theory that the heavens are like an egg and the earth its yolk. His water-driven armillary sphere, turned by a waterwheel, rotated in sync with the sky — one of the world\u2019s first hydraulic astronomical clocks. In 132 AD his seismoscope appeared: eight dragons held bronze balls above eight toads\u2019 mouths; when an earthquake struck Longxi, the western dragon dropped its ball though no tremor was felt in the capital — and the courier\u2019s report arrived days later, confirming the detection.\nHe was also a mathematician (computing pi as about 3.16) and a literary master (the "Two Capital Rhapsodies" and "Rhapsody on Returning to the Fields"). A crater on the far side of the Moon bears his name — a true Renaissance man, thirteen centuries before the Renaissance.',
+    quote: 'Life lies in diligence — without seeking, what will you gain?'
+  },
+  {
+    id: 'stephenson', name: 'George Stephenson', alt: '斯蒂芬森', years: '1781–1848',
+    field: 'Engineer · Father of the railway',
+    summary: 'Built the locomotive and the railway — mankind starts speeding on rails',
+    desc: 'An illiterate colliery boy tending steam engines, he learned to read and write at a night school at eighteen. In 1814 he built his first practical mining locomotive, "Blücher", then kept improving — his "steam blast" redirected exhaust up the chimney to boost the fire, multiplying engine power. In 1825 he drove "Locomotion No. 1" on the Stockton and Darlington Railway, the world\u2019s first public steam railway; in 1830 his "Rocket" won the Rainhill Trials at nearly 50 km/h and set the standard form of the locomotive.\nRailways spread across Europe and America: freight costs collapsed, cities boomed, and railway timetables forced humanity to standardise time itself. He is honoured as the Father of the Railway, and his statue still stands on the Liverpool–Manchester line he made famous.',
+    wiki: 'en/George Stephenson'
+  },
+
+  /* ---- Leaders & Reformers ---- */
+  {
+    id: 'constantine', name: 'Constantine the Great', alt: '君士坦丁', years: '272–337',
+    field: 'Roman Emperor',
+    summary: 'The Edict of Milan legalised Christianity — and turned Western history',
+    desc: 'In 312, before the Battle of the Milvian Bridge, he is said to have seen a vision and ordered the Christian symbol painted on his soldiers\u2019 shields; he defeated his rival Maxentius and became master of the Roman West. In 313 he and Licinius issued the Edict of Milan, granting freedom of worship throughout the empire — after nearly three centuries of persecution, Christianity was legal.\nHe then championed the church: returning confiscated property, funding basilicas, presiding over the Council of Nicaea in 325 which produced the Nicene Creed of the Trinity, and building a new capital on the Bosphorus — Constantinople. Baptised on his deathbed, he laid the foundations of Christian Europe and the Byzantine millennium that followed.',
+    wiki: 'en/Constantine the Great'
+  },
+  {
+    id: 'tangtaizong', name: 'Emperor Taizong of Tang', alt: '唐太宗', years: '598–649',
+    field: 'Second emperor of the Tang dynasty',
+    summary: 'The Reign of Zhenguan — the "Heavenly Khan" who welcomed criticism',
+    desc: 'He fought his father\u2019s campaigns to reunify China, took the throne through the Xuanwu Gate coup in 626, and in twenty-three years delivered the "Reign of Zhenguan": light taxes, a reformed examination system, lean government — society recovered from the chaos of the late Sui so thoroughly that travellers could sleep out of doors, and Chang\u2019an became the capital of the world.\nHe is the model of the ruler who welcomes criticism: his minister Wei Zheng remonstrated to his face over two hundred times, and though furious, Taizong took the advice — leaving the famous mirror maxim. After defeating the Eastern Turks he was acclaimed "Heavenly Khan" by the steppe peoples, and the marriage of Princess Wencheng to Tibet opened an era of peace. His statecraft became the textbook for emperors for the next thousand years.',
+    quote: 'With bronze as a mirror one straightens one\u2019s dress; with history as a mirror one knows rise and fall; with a man as a mirror one understands gain and loss.'
+  },
+  {
+    id: 'churchill', name: 'Winston Churchill', alt: '丘吉尔', years: '1874–1965',
+    field: 'British Prime Minister · Nobel laureate in Literature',
+    summary: 'Led the free world through its darkest hour — "we shall never surrender"',
+    desc: 'In May 1940, as Nazi forces swept Europe, Churchill became Prime Minister at 66. Against voices in his cabinet for a negotiated peace, he told the Commons the words history kept: "We shall fight on the beaches… we shall never surrender." Britain held through the Battle of Britain; he stood with Roosevelt and Stalin to lead the Allies to victory in 1945.\nHe was also a writer and orator of genius — tens of millions of words, and the 1953 Nobel Prize in Literature. Thrown out of office by the voters weeks after victory, he returned as Prime Minister in 1951, and was the first to warn of the "iron curtain". In 2002 the BBC\u2019s poll named him the Greatest Briton of All Time.',
+    quote: 'Success is not final, failure is not fatal: it is the courage to continue that counts.'
+  },
+  {
+    id: 'elizabethi', name: 'Elizabeth I', alt: '伊丽莎白一世', years: '1533–1603',
+    field: 'Queen of England',
+    summary: 'The Virgin Queen and her golden age — the birth of the British Empire',
+    desc: 'Daughter of Henry VIII, she lost her mother at two, was imprisoned in the Tower by her half-sister, and at twenty-five was crowned Queen of England. Her forty-four years (1558–1603) are the Elizabethan Age: a religious middle path ended sectarian bloodletting, trade and shipping flourished, the Spanish Armada was defeated in 1588 — and England turned to the sea.\nShe never married, declaring herself "married to England"; at Tilbury, with the Armada threatening, she told her troops: "I know I have the body of a weak and feeble woman, but I have the heart and stomach of a king." Shakespeare and Bacon flowered in her reign. Dying childless, she left the throne to James of Scotland — and the two kingdoms began their road to union, the seed of today\u2019s Britain.',
+    quote: 'I know I have the body of a weak and feeble woman, but I have the heart and stomach of a king.'
+  },
+  {
+    id: 'fdr', name: 'Franklin D. Roosevelt', alt: '罗斯福', years: '1882–1945',
+    field: '32nd President of the United States',
+    summary: 'Beat the Depression with the New Deal, led the Allies — longest-serving US president',
+    desc: 'Paralysed in both legs by polio at thirty-nine, he fought his way back to politics by sheer will. Taking office in 1932 with a quarter of Americans unemployed, he launched the New Deal: banking reform, work programmes, Social Security — redefining the role of government in the economy and drawing the blueprint of the modern welfare state. His inaugural line became immortal: "The only thing we have to fear is fear itself."\nElected four times, he led America through the Depression and the Second World War: Lend-Lease for the allies, war after Pearl Harbor, the Atlantic Charter with Churchill, and the building of the United Nations — the name was his. He died in April 1945, on the eve of victory. A president in a wheelchair, he is among the most consequential leaders of the twentieth century.',
+    quote: 'The only thing we have to fear is fear itself.'
+  },
+
+  /* ---- Explorers ---- */
+  {
+    id: 'magellan', name: 'Ferdinand Magellan', alt: '麦哲伦', years: '1480–1521',
+    field: 'Navigator · Explorer',
+    summary: 'The first circumnavigation of the Earth — proof that it is round, paid for with his life',
+    desc: 'The Portuguese noble was convinced he could reach the Spice Islands by sailing west, and turned to Spain when Lisbon refused him. In September 1519 he sailed with five ships and 265 men, crept down the South American coast through the storm-lashed strait now bearing his name (naming Tierra del Fuego for the fires on its shores), then crossed the Pacific — 38 days without landfall, the crew boiling leather for food — until the Philippines rose over the horizon in 1521.\nHe was killed in a clash with islanders and never saw his own triumph: eighteen survivors under Elcano sailed the Victoria back to Spain in 1522, completing the first circumnavigation in human history. That the Earth is round was no longer a theory.',
+    wiki: 'en/Ferdinand Magellan'
+  },
+  {
+    id: 'dagama', name: 'Vasco da Gama', alt: '达·伽马', years: 'c. 1469–1524',
+    field: 'Navigator',
+    summary: 'Rounded the Cape to India — and redrew the map of world trade',
+    desc: 'Building on eighty years of Portuguese probing down the African coast, he sailed from Lisbon in July 1497 with four ships, rounded the Cape of Good Hope — the stormy point Dias had reached and turned back from — hired an Arab pilot on the East African coast, rode the monsoon across the Indian Ocean and reached Calicut, India, in May 1498. A direct sea route between Europe and Asia, after a century of trial, was open.\nSpices no longer passed through Venetian and Arab middlemen at crushing mark-ups; Portugal became the sea power of the sixteenth century; and the centre of Eurasian trade shifted from the Mediterranean to the Atlantic — the age of maritime globalisation had begun. His "Cape route" carried world trade for four hundred years, until the Suez Canal.',
+    wiki: 'en/Vasco da Gama'
+  },
+  {
+    id: 'amundsen', name: 'Roald Amundsen', alt: '阿蒙森', years: '1872–1928',
+    field: 'Polar explorer',
+    summary: 'The first human to stand at both the South and North Poles',
+    desc: 'The Norwegian abandoned medical school for the poles. From 1903 to 1906 he threaded the Northwest Passage across the Arctic in the little herring boat Gjøa and confirmed the magnetic North Pole — a first. Planning to drift over the North Pole, he learned that Peary had claimed it, and turned his expedition south on the spot — into a race for the South Pole against Britain\u2019s Scott.\nOn 14 December 1911 his team became the first human beings at the geographic South Pole — thirty-three days ahead of Scott. He used Inuit fur clothing and dog sledges, planned ruthlessly and brought every man home; Scott\u2019s party died on the return. In 1926 he flew the airship Norge over the North Pole — the first person to reach both poles and the Northwest Passage. In 1928 he vanished in the Arctic ice flying to rescue a rival Italian expedition.',
+    quote: 'Adventure is just bad planning.'
+  },
+
+  /* ---- Artists ---- */
+  {
+    id: 'raphael', name: 'Raphael', alt: '拉斐尔', years: '1483–1520',
+    field: 'Painter · Architect',
+    summary: 'The School of Athens — the youngest and most graceful of the Renaissance trio',
+    desc: 'Born to a painter\u2019s family in Urbino, he absorbed Leonardo\u2019s sfumato and Michelangelo\u2019s force and made of them something serene and gracious. Summoned to the Vatican at twenty-five by Pope Julius II, he painted the School of Athens in the Signatura hall: Plato and Aristotle debating beneath the arches, fifty ancient philosophers gathered — the definitive image of classical reason.\nHis Madonnas set the standard of tenderness; late in life he took charge of the building of St Peter\u2019s. He died of a fever on his thirty-seventh birthday in 1520, and all Rome mourned; he was buried in the Pantheon. His epitaph: "Here lies Raphael, by whom Nature feared to be outdone while he lived, and to die when he did."',
+    wiki: 'en/Raphael'
+  },
+  {
+    id: 'dufu', name: 'Du Fu', alt: '杜甫', years: '712–770',
+    field: 'Poet',
+    summary: 'The "Poet-Sage" — 1,400 poems recording the conscience of an age',
+    desc: 'Born to a scholar-official family, he spent ten unsuccessful years seeking office in Chang\u2019an, then fled with his family as the An Lushan Rebellion tore the empire apart. His pen became a chronicle: "Behind vermillion gates, wine and meat rot while on the road lie the bones of the frozen" — ten characters with the dark side of the golden age; his "Three Officials" and "Three Partings" gave every commoner of the war its voice. Later generations called his work "poetry as history".\nWandering southwest in his last years, he found peace in the thatched cottage of Chengdu and wrote his own plea — his roof torn by autumn wind, he wished instead for "a mansion of ten million rooms to shelter all the poor of the world". He died at fifty-nine, ill, on a boat on the Xiang River. Paired with Li Bai as "Li-Du", he pushed the regulated verse to its limits — the Sage of Poetry.',
+    quote: 'How I wish for a mansion of ten million rooms, to shelter all the poor scholars of the world and make them smile.'
+  },
+  {
+    id: 'andersen', name: 'Hans Christian Andersen', alt: '安徒生', years: '1805–1875',
+    field: 'Writer · Master of the fairy tale',
+    summary: 'The Little Mermaid and the Ugly Duckling — fairy tales for the whole world',
+    desc: 'The son of a cobbler from Odense, he left for Copenhagen at fourteen to try singing, acting and writing, mocked again and again without giving up. At thirty he began publishing "fairy tales told to children"; critics called them childish, but they took root in the hearts of children everywhere: The Little Mermaid, The Ugly Duckling, The Little Match Girl, The Emperor\u2019s New Clothes, Thumbelina — nearly 170 tales in all.\nThey are not merely sweet: the mermaid becomes sea-foam, the match girl freezes, the duckling is driven away — suffering and beauty, dignity and love share every page, with meanings adults read differently. Translated into more than 150 languages, they made him Denmark\u2019s cultural ambassador. The ugly duckling becoming a swan was the metaphor of his own life — a cobbler\u2019s son who became king of the fairy tale.',
+    quote: 'Life itself is the most wonderful fairy tale.'
+  },
+  {
+    id: 'beatles', name: 'The Beatles', alt: '披头士', years: '1960–1970',
+    field: 'Band',
+    summary: 'The most influential band in history — the watershed of pop music and youth culture',
+    desc: 'John Lennon and Paul McCartney met in the working-class streets of Liverpool, joined by George Harrison and Ringo Starr, honing their craft in Hamburg\u2019s clubs and Liverpool\u2019s Cavern. In 1963 "Beatlemania" swept Britain; in 1964 they landed in America — 73 million watched the Ed Sullivan Show — and pop culture was rewritten.\nIn a decade they released thirteen albums and sold over 600 million records; Yesterday, Hey Jude and Let It Be became humanity\u2019s shared musical memory. From Rubber Soul to Sgt. Pepper they turned the studio into an instrument and the album from a song collection into a complete artwork. They broke up in 1970, but the rules of rock, the music video, the concept album and the modern touring industry were all written by them.',
+    quote: 'All you need is love.'
+  },
+  {
+    id: 'chaplin', name: 'Charlie Chaplin', alt: '卓别林', years: '1889–1977',
+    field: 'Comedian · Filmmaker',
+    summary: 'The Little Tramp who made silent film a universal language',
+    desc: 'An orphan of London\u2019s slums — his mother a singer sinking into madness, his childhood spent in workhouses — he stood with the small man all his life. In 1914 he put on the bowler hat, cane and waddling walk, and "the Tramp" was born; within two years he was the highest-paid performer in the world.\nHe wrote, directed, starred in and scored his films: City Lights, Modern Times, The Great Dictator — holding to silent aesthetics into the sound era, and daring to mock Hitler to his face at the height of Nazi power. He co-founded United Artists, turning film from fairground entertainment into an author\u2019s art. His own line: "Life is a tragedy when seen in close-up, but a comedy in long-shot." The moustache, the cane and the smile remain among the deepest marks in humanity\u2019s visual memory.',
+    quote: 'Life is a tragedy when seen in close-up, but a comedy in long-shot.'
+  },
+
+  /* ---- Humanitarians ---- */
+  {
+    id: 'bethune', name: 'Norman Bethune', alt: '白求恩', years: '1890–1939',
+    field: 'Surgeon · Internationalist',
+    summary: 'Invented frontline mobile blood transfusion — and gave his life on an anti-fascist front',
+    desc: 'A thoracic surgeon trained at Toronto, he invented and improved surgical instruments and pioneered mobile frontline blood-transfusion units in the Spanish Civil War — bringing blood to within reach of the guns. In 1938 he led a medical team to China\u2019s anti-Japanese base areas.\nIn the Shanxi–Chahar–Hebei border region he built model hospitals, wrote training manuals for village medics and performed over a thousand operations in little more than a year; during the battle of Qihe he operated for sixty-nine hours straight on 115 wounded. In 1939 he cut his finger in surgery, kept working, and died of the infection in Tang County, Hebei. Mao\u2019s essay "In Memory of Norman Bethune" made "utter devotion to others without any thought of self" a memory shared by generations of Chinese.',
+    wiki: 'en/Norman Bethune'
+  },
+  {
+    id: 'yunus', name: 'Muhammad Yunus', alt: '尤努斯', years: '1940–',
+    field: 'Economist · Nobel Peace laureate',
+    summary: 'Microcredit lifted millions out of poverty — the "banker of the poor"',
+    desc: 'A Vanderbilt-trained professor of economics at Chittagong University, he walked into villages after the 1976 famine in Bangladesh and met a woman weaving stools who was fleeced by moneylenders — borrowing 42 cents and keeping 2. He lent 42 villagers 27 dollars of his own money, and every cent came back: the poor are not uncreditworthy, they are simply excluded from finance.\nIn 1983 he founded Grameen Bank — "the village bank" — pioneering collateral-free microloans; 97% of its borrowers are women, and repayment runs at 98%. The model has been copied in more than a hundred countries and reached tens of millions. In 2006 he and the bank shared the Nobel Peace Prize — peace, the citation said, cannot be achieved unless large populations find ways out of poverty.',
+    quote: 'Poverty is not created by the poor; it is created by the systems we have built.'
+  },
+  {
+    id: 'goodall', name: 'Jane Goodall', alt: '古道尔', years: '1934–',
+    field: 'Primatologist · Conservationist',
+    summary: 'Sixty years with chimpanzees — she redrew the boundary of "human"',
+    desc: 'At four she hid in a henhouse to watch a hen lay an egg, and her mother sat down to listen rather than scold — a curiosity thus protected decided a life. At twenty-three, having saved her fare, she reached Gombe National Park in Tanganyika and lived among the chimpanzees: in 1960 she watched the chimp "David Greybeard" fish termites with a grass stem — tool use was not a human monopoly — and the finding shook anthropology to its roots.\nShe began the research without a degree; Cambridge admitted her to a PhD regardless. Over sixty years she documented chimp societies, wars, motherhood and compassion, then turned fully to conservation: the Roots & Shoots youth programme, and some 300 days a year travelling and speaking. Her creed: "Only if we understand, can we care. Only if we act, will it matter."',
+    quote: 'Only if we understand, can we care. Only if we act, will it matter.'
   }
 ];

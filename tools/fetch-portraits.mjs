@@ -53,8 +53,14 @@ const failed = [];
 
 for (const p of PEOPLE) {
   if (!p.wiki) { failed.push([p.id, 'no wiki field']); continue; }
-  const [lang, title] = p.wiki.split('/');
   const file = path.join(outDir, `${p.id}.jpg`);
+  /* 已有文件直接入清单（设 FORCE=1 强制重新抓取） */
+  if (fs.existsSync(file) && !process.env.FORCE) {
+    manifest[p.id] = { src: `assets/portraits/${p.id}.jpg`, credit: 'Wikimedia Commons' };
+    process.stdout.write(`• ${p.id} 已存在，跳过\n`);
+    continue;
+  }
+  const [lang, title] = p.wiki.split('/');
   try {
     const page = await fetchSummary(lang, title);
     const url = pickUrl(page);

@@ -11,6 +11,7 @@
   var PEOPLE_EN_BY_ID = {};
   (window.PEOPLE_EN || []).forEach(function (e) { PEOPLE_EN_BY_ID[e.id] = e; });
   var PORTRAITS = window.PORTRAITS || {};
+  var HIGHLIGHTS = window.HIGHLIGHTS || {};
   var VOTE_ISSUES = window.VOTE_ISSUES || {};
   var VOTES = {}; /* 人物 id → 👍 票数 */
   var $ = function (s) { return document.querySelector(s); };
@@ -429,6 +430,20 @@
     $('#m-desc').innerHTML = String(info.desc).split('\n').map(function (para) {
       return '<p>' + esc(para) + '</p>';
     }).join('');
+
+    /* 主要成就亮点 */
+    var hlWrap = $('#m-highlights');
+    var hl = HIGHLIGHTS[p.id];
+    if (hl && (hl[LANG] || hl.zh)) {
+      var items = hl[LANG] || hl.zh;
+      $('#m-hl-title').textContent = T().hl_title;
+      $('#m-hl-list').innerHTML = items.map(function (it) {
+        return '<li>' + esc(it) + '</li>';
+      }).join('');
+      hlWrap.classList.remove('hidden');
+    } else {
+      hlWrap.classList.add('hidden');
+    }
 
     if (info.quote) {
       $('#m-quote').textContent = info.quote;
