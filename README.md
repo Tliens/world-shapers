@@ -1,6 +1,6 @@
 # 群星闪耀 · 影响世界的人
 
-一个纯静态的人物主题网站：收录 69 位影响世界的科学家、思想家、发明家、领袖、探险家、艺术家与人道主义者，配有真实肖像封面与两段式详细生平，支持领域筛选、关键词搜索、时间轴纵览、深浅色主题与 Three.js 星空背景动效。**零运行时外部依赖**（three.js 与肖像均已本地化）。
+一个纯静态的人物主题网站：收录 69 位影响世界的科学家、思想家、发明家、领袖、探险家、艺术家与人道主义者，配有真实肖像封面与两段式详细生平，支持领域筛选、关键词搜索、时间轴纵览、Three.js 星空背景动效。**中英双语**：默认英文，检测到中国大陆时区/系统语言自动切换中文，右上角可手动切换并记忆；**默认夜间模式**。零运行时外部依赖（three.js 与肖像均已本地化）。
 
 **线上地址**：https://tliens.github.io/world-shapers/
 
@@ -54,8 +54,10 @@ gh api repos/{owner}/world-shapers/pages -X POST -f "source[branch]=main" -f "so
 .
 ├── index.html              # 页面结构
 ├── css/style.css           # 全部样式（含深色模式、响应式）
-├── js/data.js              # 人物数据（增删人物只改这个文件）
-├── js/main.js              # 交互逻辑（筛选/搜索/弹窗/时间轴/主题）
+├── js/data.js              # 人物数据（中文，增删人物只改这个文件）
+├── js/data.en.js           # 人物数据（英文，与 data.js 按 id 对应）
+├── js/i18n.js              # 界面文案词典 + 语言自动检测（中国时区→中文）
+├── js/main.js              # 交互逻辑（双语渲染/筛选/搜索/弹窗/时间轴/主题）
 ├── js/three-bg.js          # Three.js 星空背景动效
 ├── js/vendor/three.min.js  # 本地化的 three.js（r149）
 ├── assets/portraits/       # 人物肖像（含 portraits.js 清单）
@@ -66,10 +68,10 @@ gh api repos/{owner}/world-shapers/pages -X POST -f "source[branch]=main" -f "so
 
 ## 如何修改内容
 
-- **增删人物**：编辑 `js/data.js`，复制一条现有记录修改即可；`cat` 取值 `science / thought / invention / leader / explorer / art / human`，无 `quote` 字段则详情页不显示名言；`wiki` 字段（如 `en/Isaac Newton`）用于抓取肖像。
+- **增删人物**：编辑 `js/data.js`，同时在 `js/data.en.js` 补一条同 id 的英文记录；`cat` 取值 `science / thought / invention / leader / explorer / art / human`，无 `quote` 字段则详情页不显示名言；`wiki` 字段（如 `en/Isaac Newton`）用于抓取肖像。
 - **更新肖像**：改完数据后运行 `node tools/fetch-portraits.mjs`，脚本会按 `wiki` 字段从维基百科下载条目配图到 `assets/portraits/` 并更新清单；抓取失败的人物自动退回 emoji 头像。
+- **改界面文案**：中英文界面文案都在 `js/i18n.js` 的词典里。
 - **改配色 / 字体**：编辑 `css/style.css` 顶部的 `:root` 变量与各领域 `--c` 颜色。
-- **改文案**：首屏、关于、页脚文案都在 `index.html` 里。
 
 ## 内容说明
 

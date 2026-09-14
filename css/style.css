@@ -106,6 +106,16 @@ button { font-family: inherit; cursor: pointer; }
 
 .theme-toggle:hover { transform: rotate(20deg) scale(1.06); border-color: var(--gold); }
 
+.lang-toggle {
+  height: 40px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--card);
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.lang-toggle:hover { border-color: var(--gold); color: var(--gold); }
+
 /* ---------- 首屏 ---------- */
 .hero {
   position: relative; overflow: hidden;

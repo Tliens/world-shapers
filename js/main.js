@@ -1,33 +1,42 @@
 /* ==========================================================
    群星闪耀 · 交互逻辑
-   筛选 / 搜索 / 排序 / 卡片与时间轴视图 / 详情弹窗 / 主题切换
+   双语（zh/en）/ 筛选 / 搜索 / 排序 / 卡片与时间轴 / 弹窗 / 主题
+   语言：默认英文；中国大陆访客自动中文；手动切换后记忆
    人物肖像来自 assets/portraits/portraits.js（缺失时退回 emoji）
    ========================================================== */
 (function () {
   'use strict';
 
   var PEOPLE = window.PEOPLE || [];
+  var PEOPLE_EN_BY_ID = {};
+  (window.PEOPLE_EN || []).forEach(function (e) { PEOPLE_EN_BY_ID[e.id] = e; });
   var PORTRAITS = window.PORTRAITS || {};
   var $ = function (s) { return document.querySelector(s); };
 
-  var CATS = [
-    { key: 'all',       name: '全部' },
-    { key: 'science',   name: '科学家' },
-    { key: 'thought',   name: '思想家' },
-    { key: 'invention', name: '发明家' },
-    { key: 'leader',    name: '领袖与改革者' },
-    { key: 'explorer',  name: '探险家' },
-    { key: 'art',       name: '艺术家' },
-    { key: 'human',     name: '人道主义者' }
-  ];
+  var LANG = (window.AppI18N && window.AppI18N.detect()) || 'zh';
+  function T() { return window.AppI18N.dict[LANG]; }
 
-  var CAT_NAME = {};
-  CATS.slice(1).forEach(function (c) { CAT_NAME[c.key] = c.name; });
+  var CATS = ['all', 'science', 'thought', 'invention', 'leader', 'explorer', 'art', 'human'];
 
   var state = { cat: 'all', query: '', sort: 'year', view: 'grid' };
   var filtered = [];
   var currentModalIndex = -1;
   var observer = null;
+
+  /* ---------- 多语言取值 ---------- */
+  function catName(key) { return T()['cat_' + key] || key; }
+
+  function personInfo(p) {
+    if (LANG === 'en') {
+      var e = PEOPLE_EN_BY_ID[p.id];
+      if (e) {
+        return { name: e.name, sub: e.alt, years: e.years, field: e.field,
+          summary: e.summary, desc: e.desc, quote: e.quote };
+      }
+    }
+    return { name: p.name, sub: p.en, years: p.years, field: p.field,
+      summary: p.summary, desc: p.desc, quote: p.quote };
+  }
 
   /* ---------- 工具 ---------- */
   function esc(str) {
@@ -51,12 +60,68 @@
     });
     var span = Math.round((max - min) / 100) * 100;
 
-    $('#hero-count').textContent = n;
-    $('#about-count').textContent = n;
+    var hc = $('#hero-count');
+    var ac = $('#about-count');
+    if (hc) hc.textContent = n;
+    if (ac) ac.textContent = n;
     var stats = document.querySelectorAll('#stats b');
     stats[0].setAttribute('data-count', n);
     stats[1].setAttribute('data-count', cats);
     stats[2].setAttribute('data-count', span);
+  }
+
+  /* ---------- 静态 UI 文案 ---------- */
+  function renderStaticText() {
+    var t = T();
+    document.documentElement.setAttribute('lang', LANG === 'en' ? 'en' : 'zh-CN');
+    document.title = t.title;
+
+    document.querySelector('.nav a[href="#explore"]').textContent = t.nav_people;
+    $('#nav-timeline').textContent = t.nav_timeline;
+    document.querySelector('.nav a[href="#about"]').textContent = t.nav_about;
+
+    var themeBtn = $('#theme-toggle');
+    themeBtn.title = t.theme_title;
+    themeBtn.setAttribute('aria-label', t.theme_title);
+
+    var langBtn = $('#lang-toggle');
+    langBtn.textContent = LANG === 'en' ? '中' : 'EN';
+    langBtn.title = LANG === 'en' ? '切换到中文' : 'Switch to English';
+
+    document.querySelector('.hero h1').innerHTML = t.hero_h1;
+    document.querySelector('.lede').innerHTML = t.lede;
+
+    var search = $('#search');
+    search.placeholder = t.search_ph;
+    search.setAttribute('aria-label', t.search_aria);
+    $('#random-btn').textContent = t.random;
+
+    var labels = document.querySelectorAll('#stats .stat span');
+    labels[0].textContent = t.stat_people;
+    labels[1].textContent = t.stat_fields;
+    labels[2].textContent = t.stat_years;
+
+    document.querySelector('.sort-wrap span').textContent = t.sort_label;
+    $('#sort').options[0].textContent = t.sort_year;
+    $('#sort').options[1].textContent = t.sort_cat;
+
+    $('#view-grid').textContent = t.view_grid;
+    $('#view-timeline').textContent = t.view_timeline;
+
+    document.querySelector('.empty p:nth-of-type(2)').textContent = t.empty;
+    $('#clear-search').textContent = t.clear;
+
+    var cards = document.querySelectorAll('.about-card');
+    cards[0].querySelector('h3').innerHTML = t.about1_t;
+    cards[0].querySelector('p').innerHTML = t.about1_p;
+    cards[1].querySelector('h3').innerHTML = t.about2_t;
+    cards[1].querySelector('p').innerHTML = t.about2_p;
+    cards[2].querySelector('h3').innerHTML = t.about3_t;
+    cards[2].querySelector('p').innerHTML = t.about3_p;
+
+    document.querySelector('.footer-brand').innerHTML =
+      '<span class="brand-star">✦</span> ' + t.footer_brand;
+    document.querySelector('.footer-note').textContent = t.footer_note;
   }
 
   /* ---------- 筛选 / 排序 ---------- */
@@ -65,14 +130,17 @@
     filtered = PEOPLE.filter(function (p) {
       if (state.cat !== 'all' && p.cat !== state.cat) return false;
       if (!q) return true;
-      var hay = [p.name, p.en, p.field, p.summary, CAT_NAME[p.cat]].join(' ').toLowerCase();
+      var info = personInfo(p);
+      /* 双语检索：当前语言字段 + 两种语言的姓名 */
+      var hay = [info.name, info.sub, info.field, info.summary, catName(p.cat),
+        p.name, p.en].join(' ').toLowerCase();
       return hay.indexOf(q) !== -1;
     });
 
     if (state.sort === 'year') {
       filtered.sort(function (a, b) { return a.birth - b.birth; });
     } else {
-      var order = CATS.slice(1).map(function (c) { return c.key; });
+      var order = CATS.slice(1);
       filtered.sort(function (a, b) {
         var d = order.indexOf(a.cat) - order.indexOf(b.cat);
         return d !== 0 ? d : a.birth - b.birth;
@@ -83,12 +151,12 @@
   /* ---------- 筛选按钮 ---------- */
   function renderFilters() {
     var wrap = $('#filters');
-    wrap.innerHTML = CATS.map(function (c) {
-      var n = c.key === 'all'
+    wrap.innerHTML = CATS.map(function (key) {
+      var n = key === 'all'
         ? PEOPLE.length
-        : PEOPLE.filter(function (p) { return p.cat === c.key; }).length;
-      return '<button class="filter-btn' + (c.key === state.cat ? ' active' : '') +
-        '" type="button" data-cat="' + c.key + '">' + esc(c.name) +
+        : PEOPLE.filter(function (p) { return p.cat === key; }).length;
+      return '<button class="filter-btn' + (key === state.cat ? ' active' : '') +
+        '" type="button" data-cat="' + key + '">' + esc(catName(key)) +
         ' <span class="count">' + n + '</span></button>';
     }).join('');
 
@@ -105,12 +173,14 @@
 
   /* ---------- 卡片视图 ---------- */
   function cardHTML(p) {
+    var t = T();
+    var info = personInfo(p);
     var src = portraitOf(p.id);
     var media;
     if (src) {
       media =
         '<div class="card-media">' +
-          '<img class="card-img" src="' + esc(src) + '" alt="' + esc(p.name) + '" loading="lazy" data-lazy="1" />' +
+          '<img class="card-img" src="' + esc(src) + '" alt="' + esc(info.name) + '" loading="lazy" data-lazy="1" />' +
           '<span class="badge-emoji" aria-hidden="true">' + p.emoji + '</span>' +
         '</div>';
     } else {
@@ -120,16 +190,17 @@
         '</div>';
     }
     return (
-      '<article class="card" data-id="' + p.id + '" data-cat="' + p.cat + '" tabindex="0" role="button" aria-label="查看' + esc(p.name) + '">' +
+      '<article class="card" data-id="' + p.id + '" data-cat="' + p.cat + '" tabindex="0" role="button" aria-label="' +
+        esc(t.view_aria + info.name) + '">' +
         media +
-        '<span class="card-era">' + esc(p.years) + '</span>' +
+        '<span class="card-era">' + esc(info.years) + '</span>' +
         '<div class="card-body">' +
-          '<h3>' + esc(p.name) + '</h3>' +
-          '<p class="en">' + esc(p.en) + '</p>' +
-          '<p class="summary">' + esc(p.summary) + '</p>' +
+          '<h3>' + esc(info.name) + '</h3>' +
+          '<p class="en">' + esc(info.sub) + '</p>' +
+          '<p class="summary">' + esc(info.summary) + '</p>' +
           '<div class="card-foot">' +
-            '<span class="chip">' + esc(CAT_NAME[p.cat]) + '</span>' +
-            '<span class="more">了解详情 →</span>' +
+            '<span class="chip">' + esc(catName(p.cat)) + '</span>' +
+            '<span class="more">' + esc(t.more) + '</span>' +
           '</div>' +
         '</div>' +
       '</article>'
@@ -155,16 +226,26 @@
   }
 
   /* ---------- 时间轴视图 ---------- */
+  function timelineYear(birth) {
+    var t = T();
+    return birth < 0
+      ? t.year_bc.replace('{n}', Math.abs(birth))
+      : t.year_ad.replace('{n}', birth);
+  }
+
   function renderTimeline() {
     var list = filtered.slice().sort(function (a, b) { return a.birth - b.birth; });
     $('#timeline').innerHTML = list.map(function (p) {
+      var info = personInfo(p);
+      var t = T();
       return (
-        '<div class="tl-item" data-id="' + p.id + '" data-cat="' + p.cat + '" tabindex="0" role="button" aria-label="查看' + esc(p.name) + '">' +
+        '<div class="tl-item" data-id="' + p.id + '" data-cat="' + p.cat + '" tabindex="0" role="button" aria-label="' +
+          esc(t.view_aria + info.name) + '">' +
           '<div class="tl-card">' +
-            '<p class="tl-year">' + (p.birth < 0 ? '公元前 ' + Math.abs(p.birth) + ' 年' : '公元 ' + p.birth + ' 年') + '</p>' +
-            '<p class="tl-name">' + p.emoji + ' ' + esc(p.name) +
-              '<span class="en">' + esc(p.en) + '</span></p>' +
-            '<p class="tl-sum">' + esc(p.summary) + '</p>' +
+            '<p class="tl-year">' + esc(timelineYear(p.birth)) + '</p>' +
+            '<p class="tl-name">' + p.emoji + ' ' + esc(info.name) +
+              '<span class="en">' + esc(info.sub) + '</span></p>' +
+            '<p class="tl-sum">' + esc(info.summary) + '</p>' +
           '</div>' +
         '</div>'
       );
@@ -183,13 +264,16 @@
   }
 
   function updateCount() {
+    var t = T();
     var parts = [];
-    if (state.cat !== 'all') parts.push(CAT_NAME[state.cat]);
-    if (state.query.trim()) parts.push('“' + state.query.trim() + '”');
+    if (state.cat !== 'all') parts.push(catName(state.cat));
+    if (state.query.trim()) parts.push('\u201C' + state.query.trim() + '\u201D');
+    var countB = t.count_b;
+    if (LANG === 'en') countB = filtered.length === 1 ? ' result' : ' results';
     $('#result-count').textContent =
-      '共 ' + filtered.length + ' 位' +
-      (parts.length ? '（' + parts.join(' · ') + '）' : '') +
-      (state.sort === 'year' ? ' · 按时代先后' : ' · 按领域分组');
+      t.count_a + filtered.length + countB +
+      (parts.length ? t.count_open + parts.join(' · ') + t.count_close : '') +
+      (state.sort === 'year' ? t.sorted_era : t.sorted_cat);
   }
 
   function updateEmpty() {
@@ -247,27 +331,25 @@
     if (src) {
       var img = document.createElement('img');
       img.src = src;
-      img.alt = p.name;
+      img.alt = personInfo(p).name;
       portrait.appendChild(img);
-      $('#m-credit').textContent = '肖像：' + (PORTRAITS[p.id].credit || 'Wikimedia Commons');
-    } else {
-      $('#m-credit').textContent = '';
     }
     $('#m-avatar').textContent = p.emoji;
+    $('#m-credit').textContent = src ? T().credit : '';
 
-    $('#m-name').textContent = p.name;
-    $('#m-en').textContent = p.en;
-    $('#m-cat').textContent = CAT_NAME[p.cat];
-    $('#m-years').textContent = p.years;
-    $('#m-field').textContent = p.field;
+    var info = personInfo(p);
+    $('#m-name').textContent = info.name;
+    $('#m-en').textContent = info.sub;
+    $('#m-cat').textContent = catName(p.cat);
+    $('#m-years').textContent = info.years;
+    $('#m-field').textContent = info.field;
 
-    var descWrap = $('#m-desc');
-    descWrap.innerHTML = String(p.desc).split('\n').map(function (para) {
+    $('#m-desc').innerHTML = String(info.desc).split('\n').map(function (para) {
       return '<p>' + esc(para) + '</p>';
     }).join('');
 
-    if (p.quote) {
-      $('#m-quote').textContent = p.quote;
+    if (info.quote) {
+      $('#m-quote').textContent = info.quote;
       $('#m-quote-wrap').classList.remove('hidden');
     } else {
       $('#m-quote-wrap').classList.add('hidden');
@@ -280,12 +362,17 @@
   }
 
   function updateModalNav() {
+    var t = T();
     var has = currentModalIndex >= 0 && filtered.length > 1;
     var prev = $('#m-prev'), next = $('#m-next');
     prev.disabled = !has || currentModalIndex <= 0;
     next.disabled = !has || currentModalIndex >= filtered.length - 1;
-    prev.textContent = '← ' + (has && currentModalIndex > 0 ? filtered[currentModalIndex - 1].name : '上一人');
-    next.textContent = (has && currentModalIndex < filtered.length - 1 ? filtered[currentModalIndex + 1].name : '下一人') + ' →';
+    prev.textContent = (has && currentModalIndex > 0)
+      ? '← ' + personInfo(filtered[currentModalIndex - 1]).name
+      : t.prev;
+    next.textContent = (has && currentModalIndex < filtered.length - 1)
+      ? personInfo(filtered[currentModalIndex + 1]).name + ' →'
+      : t.next;
   }
 
   function closeModal() {
@@ -340,11 +427,6 @@
         's;--delay:' + (Math.random() * 5).toFixed(1) + 's;"></span>';
     }
     wrap.innerHTML = html;
-    /* three-bg.js 成功初始化后会给 hero 加 three-on 类 */
-    if (!window.THREE) return;
-    window.__threeReady = function () {
-      $('#hero').classList.add('three-on');
-    };
   }
 
   /* ---------- 入场动画 ---------- */
@@ -368,11 +450,11 @@
     });
   }
 
-  /* ---------- 主题 ---------- */
+  /* ---------- 主题（默认夜间） ---------- */
   function initTheme() {
     var saved = null;
     try { saved = localStorage.getItem('theme'); } catch (e) {}
-    var theme = saved || 'light';
+    var theme = saved || 'dark';
     document.documentElement.setAttribute('data-theme', theme);
     $('#theme-toggle').textContent = theme === 'dark' ? '☀️' : '🌙';
   }
@@ -430,13 +512,24 @@
     });
 
     $('#theme-toggle').addEventListener('click', toggleTheme);
+
+    $('#lang-toggle').addEventListener('click', function () {
+      LANG = LANG === 'zh' ? 'en' : 'zh';
+      window.AppI18N.save(LANG);
+      closeModal();
+      renderStaticText();
+      fillDynamicNumbers();
+      renderFilters();
+      render();
+    });
   }
 
   /* ---------- 启动 ---------- */
-  fillDynamicNumbers();
+  renderStaticText();
   initTheme();
   makeStars();
   renderFaceStrip();
+  fillDynamicNumbers();
   renderFilters();
   render();
   bind();
