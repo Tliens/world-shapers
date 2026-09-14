@@ -58,12 +58,24 @@ gh api repos/{owner}/world-shapers/pages -X POST -f "source[branch]=main" -f "so
 ├── js/data.en.js           # 人物数据（英文，与 data.js 按 id 对应）
 ├── js/i18n.js              # 界面文案词典 + 语言自动检测（中国时区→中文）
 ├── js/main.js              # 交互逻辑（双语渲染/筛选/搜索/弹窗/时间轴/主题）
+├── js/vote-issues.js       # 人物 id → 投票 Issue 编号映射（脚本生成）
 ├── js/three-bg.js          # Three.js 银河星空背景（开源 galaxy-generator 着色器方案）
 ├── js/vendor/three.min.js  # 本地化的 three.js（r149）
 ├── assets/portraits/       # 人物肖像（含 portraits.js 清单）
 ├── tools/fetch-portraits.mjs  # 肖像抓取脚本（node tools/fetch-portraits.mjs）
 ├── .nojekyll               # 跳过 GitHub Pages 的 Jekyll 处理
 └── README.md
+```
+
+## 投票功能（GitHub Issues）
+
+票箱就是本仓库的 Issues：每位人物一个带 `vote` 标签的 Issue，访客点卡片左上角的 **▲**（或详情页的「👍 投票」）跳转到对应 Issue，点一个 👍 即为一票（需登录 GitHub）。页面通过 GitHub API 一次请求拉回全部票数（10 分钟本地缓存），支持「按票数排序」。
+
+相关命令：
+
+```bash
+# 为新增人物补建投票 Issue（幂等，按正文标记去重）
+node tools/create-vote-issues.mjs
 ```
 
 ## 如何修改内容
