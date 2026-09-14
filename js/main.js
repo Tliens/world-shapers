@@ -1,11 +1,13 @@
 /* ==========================================================
    群星闪耀 · 交互逻辑
    筛选 / 搜索 / 排序 / 卡片与时间轴视图 / 详情弹窗 / 主题切换
+   人物肖像来自 assets/portraits/portraits.js（缺失时退回 emoji）
    ========================================================== */
 (function () {
   'use strict';
 
   var PEOPLE = window.PEOPLE || [];
+  var PORTRAITS = window.PORTRAITS || {};
   var $ = function (s) { return document.querySelector(s); };
 
   var CATS = [
@@ -14,6 +16,7 @@
     { key: 'thought',   name: '思想家' },
     { key: 'invention', name: '发明家' },
     { key: 'leader',    name: '领袖与改革者' },
+    { key: 'explorer',  name: '探险家' },
     { key: 'art',       name: '艺术家' },
     { key: 'human',     name: '人道主义者' }
   ];
@@ -33,9 +36,27 @@
     });
   }
 
-  function fmtYear(birth) {
-    if (birth < 0) return '前' + Math.abs(birth);
-    return String(birth);
+  function portraitOf(id) {
+    return PORTRAITS[id] ? PORTRAITS[id].src : null;
+  }
+
+  /* 首屏与关于区的动态数字 */
+  function fillDynamicNumbers() {
+    var n = PEOPLE.length;
+    var cats = CATS.length - 1;
+    var min = Infinity, max = -Infinity;
+    PEOPLE.forEach(function (p) {
+      if (p.birth < min) min = p.birth;
+      if (p.birth > max) max = p.birth;
+    });
+    var span = Math.round((max - min) / 100) * 100;
+
+    $('#hero-count').textContent = n;
+    $('#about-count').textContent = n;
+    var stats = document.querySelectorAll('#stats b');
+    stats[0].setAttribute('data-count', n);
+    stats[1].setAttribute('data-count', cats);
+    stats[2].setAttribute('data-count', span);
   }
 
   /* ---------- 筛选 / 排序 ---------- */
@@ -84,18 +105,32 @@
 
   /* ---------- 卡片视图 ---------- */
   function cardHTML(p) {
+    var src = portraitOf(p.id);
+    var media;
+    if (src) {
+      media =
+        '<div class="card-media">' +
+          '<img class="card-img" src="' + esc(src) + '" alt="' + esc(p.name) + '" loading="lazy" data-lazy="1" />' +
+          '<span class="badge-emoji" aria-hidden="true">' + p.emoji + '</span>' +
+        '</div>';
+    } else {
+      media =
+        '<div class="card-media fallback">' +
+          '<span class="fallback-emoji" aria-hidden="true">' + p.emoji + '</span>' +
+        '</div>';
+    }
     return (
       '<article class="card" data-id="' + p.id + '" data-cat="' + p.cat + '" tabindex="0" role="button" aria-label="查看' + esc(p.name) + '">' +
-        '<div class="card-top">' +
-          '<div class="avatar" aria-hidden="true">' + p.emoji + '</div>' +
-          '<span class="era">' + esc(p.years) + '</span>' +
-        '</div>' +
-        '<h3>' + esc(p.name) + '</h3>' +
-        '<p class="en">' + esc(p.en) + '</p>' +
-        '<p class="summary">' + esc(p.summary) + '</p>' +
-        '<div class="card-foot">' +
-          '<span class="chip">' + esc(CAT_NAME[p.cat]) + '</span>' +
-          '<span class="more">了解详情 →</span>' +
+        media +
+        '<span class="card-era">' + esc(p.years) + '</span>' +
+        '<div class="card-body">' +
+          '<h3>' + esc(p.name) + '</h3>' +
+          '<p class="en">' + esc(p.en) + '</p>' +
+          '<p class="summary">' + esc(p.summary) + '</p>' +
+          '<div class="card-foot">' +
+            '<span class="chip">' + esc(CAT_NAME[p.cat]) + '</span>' +
+            '<span class="more">了解详情 →</span>' +
+          '</div>' +
         '</div>' +
       '</article>'
     );
@@ -104,6 +139,19 @@
   function renderGrid() {
     $('#grid').innerHTML = filtered.map(cardHTML).join('');
     bindCards('#grid .card');
+    watchLazyImages();
+  }
+
+  /* 图片加载完成后的淡入 */
+  function watchLazyImages() {
+    document.querySelectorAll('#grid img[data-lazy]').forEach(function (img) {
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', function () { img.classList.add('loaded'); });
+        img.addEventListener('error', function () { img.style.display = 'none'; });
+      }
+    });
   }
 
   /* ---------- 时间轴视图 ---------- */
@@ -189,16 +237,34 @@
     if (!p) return;
     currentModalIndex = filtered.findIndex(function (x) { return x.id === id; });
 
+    var modalCard = document.querySelector('.modal-card');
+    modalCard.setAttribute('data-cat', p.cat);
+
+    var portrait = $('#m-portrait');
+    var src = portraitOf(p.id);
+    var oldImg = portrait.querySelector('img');
+    if (oldImg) oldImg.remove();
+    if (src) {
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = p.name;
+      portrait.appendChild(img);
+      $('#m-credit').textContent = '肖像：' + (PORTRAITS[p.id].credit || 'Wikimedia Commons');
+    } else {
+      $('#m-credit').textContent = '';
+    }
     $('#m-avatar').textContent = p.emoji;
+
     $('#m-name').textContent = p.name;
     $('#m-en').textContent = p.en;
     $('#m-cat').textContent = CAT_NAME[p.cat];
     $('#m-years').textContent = p.years;
     $('#m-field').textContent = p.field;
-    $('#m-desc').textContent = p.desc;
 
-    var modalCard = document.querySelector('.modal-card');
-    modalCard.setAttribute('data-cat', p.cat);
+    var descWrap = $('#m-desc');
+    descWrap.innerHTML = String(p.desc).split('\n').map(function (para) {
+      return '<p>' + esc(para) + '</p>';
+    }).join('');
 
     if (p.quote) {
       $('#m-quote').textContent = p.quote;
@@ -210,6 +276,7 @@
     updateModalNav();
     $('#modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+    modalCard.scrollTop = 0;
   }
 
   function updateModalNav() {
@@ -233,6 +300,18 @@
     }
   }
 
+  /* ---------- 头像走廊 ---------- */
+  function renderFaceStrip() {
+    var strip = $('#face-strip');
+    var withFaces = PEOPLE.filter(function (p) { return portraitOf(p.id); });
+    if (withFaces.length < 8) { strip.parentElement.style.display = 'none'; return; }
+    var faces = withFaces.map(function (p) {
+      return '<img class="face" src="' + esc(portraitOf(p.id)) + '" alt="" loading="lazy" />';
+    });
+    /* 复制一份实现无缝滚动 */
+    strip.innerHTML = faces.concat(faces).join('');
+  }
+
   /* ---------- 首屏数字滚动 ---------- */
   function animateStats() {
     document.querySelectorAll('#stats b').forEach(function (el) {
@@ -249,7 +328,7 @@
     });
   }
 
-  /* ---------- 星空 ---------- */
+  /* ---------- CSS 星空（Three.js 不可用时的后备） ---------- */
   function makeStars() {
     var wrap = $('#stars');
     var html = '';
@@ -261,6 +340,11 @@
         's;--delay:' + (Math.random() * 5).toFixed(1) + 's;"></span>';
     }
     wrap.innerHTML = html;
+    /* three-bg.js 成功初始化后会给 hero 加 three-on 类 */
+    if (!window.THREE) return;
+    window.__threeReady = function () {
+      $('#hero').classList.add('three-on');
+    };
   }
 
   /* ---------- 入场动画 ---------- */
@@ -349,8 +433,10 @@
   }
 
   /* ---------- 启动 ---------- */
+  fillDynamicNumbers();
   initTheme();
   makeStars();
+  renderFaceStrip();
   renderFilters();
   render();
   bind();

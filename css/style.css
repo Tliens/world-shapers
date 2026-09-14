@@ -261,15 +261,15 @@ button { font-family: inherit; cursor: pointer; }
 /* ---------- 卡片网格 ---------- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
 }
 
 .card {
   --c: var(--gold);
   position: relative; overflow: hidden;
   background: var(--card); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 24px 24px 20px;
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -285,7 +285,7 @@ button { font-family: inherit; cursor: pointer; }
 .card::before {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, var(--c), transparent 75%);
-  opacity: 0.85;
+  opacity: 0.85; z-index: 2;
 }
 
 .card:hover {
@@ -294,16 +294,52 @@ button { font-family: inherit; cursor: pointer; }
   border-color: color-mix(in srgb, var(--c) 45%, var(--line));
 }
 
-.card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-
-.avatar {
-  width: 60px; height: 60px; border-radius: 50%;
-  display: grid; place-items: center; font-size: 30px;
-  background: color-mix(in srgb, var(--c) 13%, transparent);
-  border: 1px solid color-mix(in srgb, var(--c) 28%, transparent);
+/* 封面图 */
+.card-media {
+  position: relative; aspect-ratio: 3 / 2; overflow: hidden;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--c) 22%, var(--card)),
+    color-mix(in srgb, var(--c) 6%, var(--card)));
 }
 
-.card .era { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.card-media img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center 22%;
+  display: block; opacity: 0;
+  transition: opacity 0.6s ease, transform 0.5s ease;
+}
+
+.card-media img.loaded { opacity: 1; }
+
+.card:hover .card-media img { transform: scale(1.06); }
+
+.card-media.fallback { display: grid; place-items: center; }
+
+.card-media.fallback .fallback-emoji {
+  font-size: 64px;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
+}
+
+.badge-emoji {
+  position: absolute; left: 14px; bottom: 14px; z-index: 1;
+  width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 23px;
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--c) 40%, var(--line));
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.card-era {
+  position: absolute; top: 12px; right: 12px; z-index: 1;
+  font-size: 12px; padding: 4px 11px; border-radius: 999px;
+  color: #fff; background: rgba(22, 18, 10, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-variant-numeric: tabular-nums;
+}
+
+.card-body { padding: 18px 20px 16px; }
 
 .card h3 { font-size: 19px; letter-spacing: 0.02em; margin-bottom: 2px; }
 
@@ -336,6 +372,7 @@ button { font-family: inherit; cursor: pointer; }
 [data-cat="thought"]   { --c: #8a63c9; }
 [data-cat="invention"] { --c: #d98e32; }
 [data-cat="leader"]    { --c: #d05c5c; }
+[data-cat="explorer"]  { --c: #38a3c9; }
 [data-cat="art"]       { --c: #2fa896; }
 [data-cat="human"]     { --c: #5da052; }
 
@@ -475,7 +512,24 @@ button { font-family: inherit; cursor: pointer; }
 
 .modal-head { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; }
 
-.modal-head .avatar { width: 76px; height: 76px; font-size: 38px; flex: none; }
+.portrait {
+  position: relative;
+  width: 132px; height: 88px; flex: none;
+  border-radius: 14px; overflow: hidden;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--c) 22%, var(--card)),
+    color-mix(in srgb, var(--c) 8%, var(--card)));
+  border: 1px solid color-mix(in srgb, var(--c) 30%, var(--line));
+}
+
+.portrait img {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 22%;
+  display: block;
+}
+
+.portrait .portrait-emoji { font-size: 44px; }
 
 .modal-head-text h3 { font-size: 24px; letter-spacing: 0.02em; }
 
@@ -487,7 +541,9 @@ button { font-family: inherit; cursor: pointer; }
 
 .m-field { font-size: 13.5px; color: var(--gold); font-weight: 600; letter-spacing: 0.04em; margin-bottom: 10px; }
 
-.m-desc { font-size: 15px; line-height: 1.95; margin-bottom: 20px; }
+.m-desc { font-size: 15px; line-height: 1.92; }
+
+.m-desc p { margin: 0 0 12px; }
 
 .m-quote {
   position: relative;
@@ -505,6 +561,8 @@ button { font-family: inherit; cursor: pointer; }
   font-family: Georgia, serif;
 }
 
+.m-credit { font-size: 11.5px; color: var(--muted); opacity: 0.85; margin: -4px 0 18px; }
+
 .modal-nav {
   display: flex; justify-content: space-between; gap: 12px;
   padding-top: 16px; border-top: 1px solid var(--line);
@@ -518,6 +576,43 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .modal-nav button:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ---------- 3D 星空背景 ---------- */
+#bg3d {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.5; transition: opacity 0.6s ease;
+}
+
+[data-theme="dark"] #bg3d { opacity: 0.95; }
+
+main, .site-footer { position: relative; z-index: 1; }
+
+/* Three.js 可用时隐藏 CSS 星星，避免重复 */
+.hero.three-on .stars { display: none; }
+
+/* ---------- 头像走廊 ---------- */
+.face-strip-wrap {
+  margin-top: 46px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+}
+
+.face-strip {
+  display: flex; gap: 18px; width: max-content;
+  animation: faceScroll 80s linear infinite;
+}
+
+.face-strip-wrap:hover .face-strip { animation-play-state: paused; }
+
+.face-strip .face {
+  width: 56px; height: 56px; border-radius: 50%;
+  object-fit: cover; object-position: center 20%;
+  border: 2px solid color-mix(in srgb, var(--gold) 35%, var(--line));
+  box-shadow: var(--shadow);
+  background: var(--card);
+}
+
+@keyframes faceScroll { to { transform: translateX(-50%); } }
 
 /* ---------- 响应式 ---------- */
 @media (max-width: 860px) {
@@ -543,6 +638,9 @@ button { font-family: inherit; cursor: pointer; }
   .toolbar { justify-content: center; }
   .modal-card { padding: 26px 22px 20px; }
   .modal-head { flex-direction: row; gap: 16px; }
+  .portrait { width: 108px; height: 72px; }
+  .portrait .portrait-emoji { font-size: 36px; }
+  .face-strip .face { width: 46px; height: 46px; }
 }
 
 /* ---------- 动效偏好 ---------- */
@@ -554,4 +652,5 @@ button { font-family: inherit; cursor: pointer; }
     transition-duration: 0.01ms !important;
   }
   .card, .tl-item { opacity: 1; transform: none; }
+  .face-strip { animation: none; }
 }
