@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>群星闪耀 · 影响世界的人</title>
+  <meta name="description" content="34 位影响世界的人：从轴心时代到信息时代，他们的思想、发现与勇气，写成了我们今天生活的世界。" />
+  <meta property="og:title" content="群星闪耀 · 影响世界的人" />
+  <meta property="og:description" content="从轴心时代到信息时代，34 颗照亮人类文明的星。" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='88'>✦</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top"><span class="brand-star">✦</span>群星闪耀</a>
+      <nav class="nav" aria-label="主导航">
+        <a href="#explore">人物</a>
+        <button id="nav-timeline" class="nav-btn" type="button">时间线</button>
+        <a href="#about">关于</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" type="button" title="切换深浅色" aria-label="切换深浅色">🌙</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 首屏 -->
+    <section class="hero" id="hero">
+      <div class="stars" id="stars" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <p class="kicker">SHAPERS OF OUR WORLD</p>
+        <h1>影响世界的<em>人</em></h1>
+        <p class="lede">从轴心时代到信息时代，34 颗照亮人类文明的星。<br class="br-desktop" />他们的思想、发现与勇气，写成了我们今天生活的世界。</p>
+        <div class="hero-actions">
+          <div class="search">
+            <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+            <input id="search" type="search" placeholder="搜索人物、领域或关键词…" autocomplete="off" aria-label="搜索人物" />
+          </div>
+          <button id="random-btn" class="btn-ghost" type="button">✨ 随机认识一位</button>
+        </div>
+        <div class="hero-stats" id="stats">
+          <div class="stat"><b data-count="34">0</b><span>位人物</span></div>
+          <div class="stat-sep" aria-hidden="true">·</div>
+          <div class="stat"><b data-count="6">0</b><span>大领域</span></div>
+          <div class="stat-sep" aria-hidden="true">·</div>
+          <div class="stat"><b data-count="2500">0</b><span>年跨度</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 人物浏览 -->
+    <section class="explore container" id="explore">
+      <div class="filters" id="filters" role="tablist" aria-label="领域筛选"><!-- 由 JS 生成 --></div>
+      <div class="toolbar">
+        <span id="result-count" class="result-count" aria-live="polite"></span>
+        <div class="toolbar-right">
+          <label class="sort-wrap">
+            <span>排序</span>
+            <select id="sort">
+              <option value="year">时代先后</option>
+              <option value="category">按领域</option>
+            </select>
+          </label>
+          <div class="view-switch" role="group" aria-label="视图切换">
+            <button id="view-grid" class="active" type="button" aria-pressed="true">卡片</button>
+            <button id="view-timeline" type="button" aria-pressed="false">时间轴</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+      <div id="timeline" class="timeline hidden"></div>
+
+      <div id="empty" class="empty hidden">
+        <p class="empty-emoji">🌌</p>
+        <p>没有找到匹配的人物</p>
+        <button id="clear-search" class="btn-ghost" type="button">清除筛选</button>
+      </div>
+    </section>
+
+    <!-- 关于 -->
+    <section class="about container" id="about">
+      <h2>关于本站</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3><span class="about-star">✦</span> 为什么是这些人</h3>
+          <p>收录标准不是"最伟大"，而是"影响最深"：34 位人物横跨科学、思想、发明、政治、艺术与人道六大门类，兼顾不同文明、时代与性别。评选难免主观——正是这种主观，值得被公开讨论。</p>
+        </div>
+        <div class="about-card">
+          <h3><span class="about-star">✦</span> 资料说明</h3>
+          <p>简介依据公开史料撰写，人物年代采用通行说法，存在争议者以"约"标注；名言为流传较广的摘录版本，未必是原始出处，仅作领会其精神之用。</p>
+        </div>
+        <div class="about-card">
+          <h3><span class="about-star">✦</span> 如何使用</h3>
+          <p>支持按领域筛选与关键词搜索；点击卡片查看详细生平与名言；切换"时间轴"视图可纵览两千五百年；右上角可切换深浅色模式。全站无任何依赖，离线可用。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-brand"><span class="brand-star">✦</span> 群星闪耀 · 影响世界的人</p>
+      <p class="footer-note">人物与史实仅供学习参考 · 静态站点 · 托管于 GitHub Pages</p>
+    </div>
+  </footer>
+
+  <!-- 人物详情弹窗 -->
+  <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-name">
+    <div class="modal-mask" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" type="button" data-close aria-label="关闭">✕</button>
+      <div class="modal-head">
+        <div class="avatar" id="m-avatar" aria-hidden="true"></div>
+        <div class="modal-head-text">
+          <h3 id="m-name"></h3>
+          <p class="en" id="m-en"></p>
+          <div class="meta">
+            <span class="chip" id="m-cat"></span>
+            <span class="era" id="m-years"></span>
+          </div>
+        </div>
+      </div>
+      <p class="m-field" id="m-field"></p>
+      <p class="m-desc" id="m-desc"></p>
+      <blockquote class="m-quote hidden" id="m-quote-wrap">
+        <span class="m-quote-mark" aria-hidden="true">"</span>
+        <span id="m-quote"></span>
+      </blockquote>
+      <div class="modal-nav">
+        <button id="m-prev" type="button">← 上一人</button>
+        <button id="m-next" type="button">下一人 →</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
