@@ -11,6 +11,8 @@
   var PEOPLE_EN_BY_ID = {};
   (window.PEOPLE_EN || []).forEach(function (e) { PEOPLE_EN_BY_ID[e.id] = e; });
   var PORTRAITS = window.PORTRAITS || {};
+  var VOTE_ISSUES = window.VOTE_ISSUES || {};
+  var VOTES = {}; /* 人物 id → 👍 票数 */
   var $ = function (s) { return document.querySelector(s); };
 
   var LANG = (window.AppI18N && window.AppI18N.detect()) || 'zh';
@@ -105,7 +107,8 @@
 
     document.querySelector('.sort-wrap span').textContent = t.sort_label;
     $('#sort').options[0].textContent = t.sort_year;
-    $('#sort').options[1].textContent = t.sort_cat;
+    $('#sort').options[1].textContent = t.sort_votes;
+    $('#sort').options[2].textContent = t.sort_cat;
 
     $('#view-grid').textContent = t.view_grid;
     $('#view-timeline').textContent = t.view_timeline;
@@ -141,6 +144,11 @@
 
     if (state.sort === 'year') {
       filtered.sort(function (a, b) { return a.birth - b.birth; });
+    } else if (state.sort === 'votes') {
+      filtered.sort(function (a, b) {
+        var d = (VOTES[b.id] || 0) - (VOTES[a.id] || 0);
+        return d !== 0 ? d : a.birth - b.birth;
+      });
     } else {
       var order = CATS.slice(1);
       filtered.sort(function (a, b) {
@@ -191,10 +199,16 @@
           '<span class="fallback-emoji" aria-hidden="true">' + p.emoji + '</span>' +
         '</div>';
     }
+    var votePill = voteUrl(p.id)
+      ? '<button class="vote-pill" type="button" data-vote="' + p.id + '" title="' + esc(t.vote_tooltip) +
+        '" aria-label="' + esc(t.vote_aria) + '">▲ <span class="vcount">' +
+        (VOTES[p.id] !== undefined ? VOTES[p.id] : '·') + '</span></button>'
+      : '';
     return (
       '<article class="card" data-id="' + p.id + '" data-cat="' + p.cat + '" tabindex="0" role="button" aria-label="' +
         esc(t.view_aria + info.name) + '">' +
         media +
+        votePill +
         '<span class="card-era">' + esc(info.years) + '</span>' +
         '<div class="card-body">' +
           '<h3>' + esc(info.name) + '</h3>' +
@@ -212,7 +226,71 @@
   function renderGrid() {
     $('#grid').innerHTML = filtered.map(cardHTML).join('');
     bindCards('#grid .card');
+    bindVoteButtons('#grid .card');
     watchLazyImages();
+  }
+
+  /* ---------- 投票 ---------- */
+  function voteUrl(id) {
+    return VOTE_ISSUES[id]
+      ? 'https://github.com/Tliens/world-shapers/issues/' + VOTE_ISSUES[id]
+      : null;
+  }
+
+  function bindVoteButtons(scope) {
+    document.querySelectorAll(scope + ' .vote-pill').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var url = voteUrl(btn.getAttribute('data-vote'));
+        if (url) window.open(url, '_blank');
+      });
+    });
+  }
+
+  /* 从 GitHub Issues 拉取 👍 票数（10 分钟本地缓存，1 次请求取全部） */
+  function loadVoteCounts() {
+    if (!Object.keys(VOTE_ISSUES).length) return;
+    var cached = null;
+    try { cached = JSON.parse(localStorage.getItem('voteCache') || 'null'); } catch (e) {}
+    if (cached && cached.c && Date.now() - cached.t < 600000) {
+      applyVoteCounts(cached.c);
+      return;
+    }
+    fetch('https://api.github.com/repos/Tliens/world-shapers/issues?per_page=100&state=all&labels=vote')
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (list) {
+        var counts = {};
+        list.forEach(function (it) {
+          if (!it.reactions) return;
+          for (var id in VOTE_ISSUES) {
+            if (VOTE_ISSUES[id] === it.number) counts[id] = it.reactions['+1'] || 0;
+          }
+        });
+        try { localStorage.setItem('voteCache', JSON.stringify({ t: Date.now(), c: counts })); } catch (e) {}
+        applyVoteCounts(counts);
+      })
+      .catch(function () { /* 限流或离线：不显示票数，按钮仍可跳转 */ });
+  }
+
+  function applyVoteCounts(counts) {
+    Object.keys(counts).forEach(function (id) { VOTES[id] = counts[id]; });
+    document.querySelectorAll('.vote-pill').forEach(function (pill) {
+      var id = pill.getAttribute('data-vote');
+      if (VOTES[id] !== undefined) pill.querySelector('.vcount').textContent = VOTES[id];
+    });
+    if (currentModalIndex >= 0 && filtered[currentModalIndex]) {
+      updateModalVote(filtered[currentModalIndex]);
+    }
+    if (state.sort === 'votes') render();
+  }
+
+  function updateModalVote(p) {
+    var btn = $('#m-vote');
+    if (!btn) return;
+    var url = voteUrl(p.id);
+    btn.disabled = !url;
+    var n = VOTES[p.id];
+    btn.textContent = T().vote_btn + (n !== undefined ? ' · ' + n : '');
   }
 
   /* 图片加载完成后的淡入 */
@@ -275,7 +353,8 @@
     $('#result-count').textContent =
       t.count_a + filtered.length + countB +
       (parts.length ? t.count_open + parts.join(' · ') + t.count_close : '') +
-      (state.sort === 'year' ? t.sorted_era : t.sorted_cat);
+      (state.sort === 'year' ? t.sorted_era
+        : state.sort === 'votes' ? t.sorted_votes : t.sorted_cat);
   }
 
   function updateEmpty() {
@@ -292,6 +371,7 @@
         openModal(el.getAttribute('data-id'));
       });
       el.addEventListener('keydown', function (e) {
+        if (e.target !== el) return; /* 投票按钮等子元素的按键不触发弹窗 */
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           openModal(el.getAttribute('data-id'));
@@ -358,6 +438,7 @@
     }
 
     updateModalNav();
+    updateModalVote(p);
     $('#modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
     modalCard.scrollTop = 0;
@@ -506,6 +587,13 @@
     $('#m-prev').addEventListener('click', function () { step(-1); });
     $('#m-next').addEventListener('click', function () { step(1); });
 
+    $('#m-vote').addEventListener('click', function () {
+      if (currentModalIndex >= 0 && filtered[currentModalIndex]) {
+        var url = voteUrl(filtered[currentModalIndex].id);
+        if (url) window.open(url, '_blank');
+      }
+    });
+
     document.addEventListener('keydown', function (e) {
       if ($('#modal').classList.contains('hidden')) return;
       if (e.key === 'Escape') closeModal();
@@ -536,4 +624,5 @@
   render();
   bind();
   animateStats();
+  loadVoteCounts();
 })();

@@ -349,6 +349,25 @@ button { font-family: inherit; cursor: pointer; }
   font-variant-numeric: tabular-nums;
 }
 
+/* 投票按钮（卡片封面左上角） */
+.vote-pill {
+  position: absolute; top: 12px; left: 12px; z-index: 1;
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; line-height: 1; padding: 5px 11px;
+  border-radius: 999px; cursor: pointer;
+  color: #fff; background: rgba(22, 18, 10, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-variant-numeric: tabular-nums;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.vote-pill:hover {
+  background: var(--c); border-color: var(--c);
+  transform: scale(1.08);
+}
+
 .card-body { padding: 18px 20px 16px; }
 
 .card h3 { font-size: 19px; letter-spacing: 0.02em; margin-bottom: 2px; }
@@ -574,9 +593,22 @@ button { font-family: inherit; cursor: pointer; }
 .m-credit { font-size: 11.5px; color: var(--muted); opacity: 0.85; margin: -4px 0 18px; }
 
 .modal-nav {
-  display: flex; justify-content: space-between; gap: 12px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
   padding-top: 16px; border-top: 1px solid var(--line);
 }
+
+.modal-nav-pages { display: flex; gap: 12px; }
+
+.modal-vote {
+  border: 1px solid var(--gold); background: color-mix(in srgb, var(--gold) 12%, transparent);
+  color: var(--gold); font-size: 13.5px; font-weight: 600;
+  border-radius: 999px; padding: 9px 18px;
+  transition: all 0.2s;
+}
+
+.modal-vote:hover { background: var(--gold); color: #fff; }
+
+.modal-vote:disabled { opacity: 0.4; cursor: default; }
 
 .modal-nav button {
   border: 1px solid var(--line); background: transparent;
