@@ -58,7 +58,7 @@ gh api repos/{owner}/world-shapers/pages -X POST -f "source[branch]=main" -f "so
 ├── js/data.en.js           # 人物数据（英文，与 data.js 按 id 对应）
 ├── js/i18n.js              # 界面文案词典 + 语言自动检测（中国时区→中文）
 ├── js/main.js              # 交互逻辑（双语渲染/筛选/搜索/弹窗/时间轴/主题）
-├── js/three-bg.js          # Three.js 星空背景动效
+├── js/three-bg.js          # Three.js 银河星空背景（开源 galaxy-generator 着色器方案）
 ├── js/vendor/three.min.js  # 本地化的 three.js（r149）
 ├── assets/portraits/       # 人物肖像（含 portraits.js 清单）
 ├── tools/fetch-portraits.mjs  # 肖像抓取脚本（node tools/fetch-portraits.mjs）
