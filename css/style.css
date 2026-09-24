@@ -106,6 +106,15 @@ button { font-family: inherit; cursor: pointer; }
 
 .theme-toggle:hover { transform: rotate(20deg) scale(1.06); border-color: var(--gold); }
 
+.x-link {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--card);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--ink); transition: transform 0.3s, border-color 0.2s;
+}
+
+.x-link:hover { transform: scale(1.06); border-color: var(--gold); }
+
 .lang-toggle {
   height: 40px; padding: 0 14px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--card);
