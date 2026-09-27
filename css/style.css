@@ -115,6 +115,16 @@ button { font-family: inherit; cursor: pointer; }
 
 .x-link:hover { transform: scale(1.06); border-color: var(--gold); }
 
+.nav-toggle {
+  display: none;
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--card);
+  font-size: 16px; line-height: 1; color: var(--ink);
+  transition: border-color 0.2s;
+}
+
+.nav-toggle:hover { border-color: var(--gold); }
+
 .lang-toggle {
   height: 40px; padding: 0 14px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--card);
@@ -715,8 +725,27 @@ main, .site-footer { position: relative; z-index: 1; }
 }
 
 @media (max-width: 620px) {
-  .nav { display: none; }
-  .header-inner { justify-content: space-between; }
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .site-header .nav {
+    display: none;
+    position: absolute; top: 64px; left: 16px; right: 16px;
+    flex-direction: column; align-items: stretch; gap: 2px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 8px;
+    box-shadow: var(--shadow-hover); z-index: 60;
+  }
+  .site-header .nav.open { display: flex; }
+  .site-header .nav a,
+  .site-header .nav .nav-btn {
+    padding: 12px 14px; border-radius: 10px;
+    font-size: 16px; text-align: left;
+  }
+  .site-header .nav a:hover,
+  .site-header .nav .nav-btn:hover { background: color-mix(in srgb, var(--gold) 10%, transparent); }
+  .header-inner { justify-content: space-between; gap: 10px; }
+  .x-link { display: none; }
+  .brand { font-size: 17px; letter-spacing: 0.02em; white-space: nowrap; }
+  .lang-toggle { padding: 0 10px; }
   .hero { padding: 66px 0 54px; }
   .hero-stats { gap: 12px; }
   .hero-stats b { font-size: 24px; }

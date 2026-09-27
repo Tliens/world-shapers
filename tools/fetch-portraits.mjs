@@ -3,6 +3,7 @@
    抓取失败的人物不会写入 manifest，页面会自动退回 emoji 头像 */
 import fs from 'node:fs';
 import path from 'node:path';
+import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -53,21 +54,30 @@ const failed = [];
 
 for (const p of PEOPLE) {
   if (!p.wiki) { failed.push([p.id, 'no wiki field']); continue; }
-  const file = path.join(outDir, `${p.id}.jpg`);
   /* 已有文件直接入清单（设 FORCE=1 强制重新抓取） */
-  if (fs.existsSync(file) && !process.env.FORCE) {
-    manifest[p.id] = { src: `assets/portraits/${p.id}.jpg`, credit: 'Wikimedia Commons' };
+  if ((fs.existsSync(path.join(outDir, `${p.id}.webp`)) || fs.existsSync(path.join(outDir, `${p.id}.jpg`))) && !process.env.FORCE) {
+    const ext = fs.existsSync(path.join(outDir, `${p.id}.webp`)) ? 'webp' : 'jpg';
+    manifest[p.id] = { src: `assets/portraits/${p.id}.${ext}`, credit: 'Wikimedia Commons' };
     process.stdout.write(`• ${p.id} 已存在，跳过\n`);
     continue;
   }
   const [lang, title] = p.wiki.split('/');
+  const jpgFile = path.join(outDir, `${p.id}.jpg`);
   try {
     const page = await fetchSummary(lang, title);
     const url = pickUrl(page);
     if (!url) throw new Error('no thumbnail');
-    await download(url, file);
-    manifest[p.id] = { src: `assets/portraits/${p.id}.jpg`, credit: 'Wikimedia Commons' };
-    process.stdout.write(`✓ ${p.id}\n`);
+    await download(url, jpgFile);
+    /* 尽量转 webp（需要 cwebp），失败则保留 jpg */
+    let ext = 'jpg';
+    try {
+      execSync(`cwebp -q 80 "${jpgFile}" -o "${path.join(outDir, `${p.id}.webp`)}" -quiet`, { stdio: 'pipe' });
+      const j = fs.statSync(jpgFile).size, w = fs.statSync(path.join(outDir, `${p.id}.webp`)).size;
+      if (w < j) { fs.unlinkSync(jpgFile); ext = 'webp'; }
+      else fs.unlinkSync(path.join(outDir, `${p.id}.webp`));
+    } catch { /* 无 cwebp，保留 jpg */ }
+    manifest[p.id] = { src: `assets/portraits/${p.id}.${ext}`, credit: 'Wikimedia Commons' };
+    process.stdout.write(`✓ ${p.id} (${ext})\n`);
   } catch (e) {
     failed.push([p.id, e.message]);
     process.stdout.write(`✗ ${p.id}: ${e.message}\n`);

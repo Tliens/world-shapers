@@ -1,287 +1,287 @@
-/* 由 tools/fetch-portraits.mjs 生成：人物肖像清单（缺项自动退回 emoji 头像） */
+/* 由 tools/fetch-portraits.mjs 与 tools/optimize-images.mjs 生成：人物肖像清单（缺项自动退回 emoji 头像） */
 window.PORTRAITS = {
   "newton": {
-    "src": "assets/portraits/newton.jpg",
+    "src": "assets/portraits/newton.webp",
     "credit": "Wikimedia Commons"
   },
   "einstein": {
-    "src": "assets/portraits/einstein.jpg",
+    "src": "assets/portraits/einstein.webp",
     "credit": "Wikimedia Commons"
   },
   "curie": {
-    "src": "assets/portraits/curie.jpg",
+    "src": "assets/portraits/curie.webp",
     "credit": "Wikimedia Commons"
   },
   "darwin": {
-    "src": "assets/portraits/darwin.jpg",
+    "src": "assets/portraits/darwin.webp",
     "credit": "Wikimedia Commons"
   },
   "pasteur": {
-    "src": "assets/portraits/pasteur.jpg",
+    "src": "assets/portraits/pasteur.webp",
     "credit": "Wikimedia Commons"
   },
   "turing": {
-    "src": "assets/portraits/turing.jpg",
+    "src": "assets/portraits/turing.webp",
     "credit": "Wikimedia Commons"
   },
   "tuyouyou": {
-    "src": "assets/portraits/tuyouyou.jpg",
+    "src": "assets/portraits/tuyouyou.webp",
     "credit": "Wikimedia Commons"
   },
   "copernicus": {
-    "src": "assets/portraits/copernicus.jpg",
+    "src": "assets/portraits/copernicus.webp",
     "credit": "Wikimedia Commons"
   },
   "galileo": {
-    "src": "assets/portraits/galileo.jpg",
+    "src": "assets/portraits/galileo.webp",
     "credit": "Wikimedia Commons"
   },
   "maxwell": {
-    "src": "assets/portraits/maxwell.jpg",
+    "src": "assets/portraits/maxwell.webp",
     "credit": "Wikimedia Commons"
   },
   "mendeleev": {
-    "src": "assets/portraits/mendeleev.jpg",
+    "src": "assets/portraits/mendeleev.webp",
     "credit": "Wikimedia Commons"
   },
   "fleming": {
-    "src": "assets/portraits/fleming.jpg",
+    "src": "assets/portraits/fleming.webp",
     "credit": "Wikimedia Commons"
   },
   "hawking": {
-    "src": "assets/portraits/hawking.jpg",
+    "src": "assets/portraits/hawking.webp",
     "credit": "Wikimedia Commons"
   },
   "wcrick": {
-    "src": "assets/portraits/wcrick.jpg",
+    "src": "assets/portraits/wcrick.webp",
     "credit": "Wikimedia Commons"
   },
   "laotzu": {
-    "src": "assets/portraits/laotzu.jpg",
+    "src": "assets/portraits/laotzu.webp",
     "credit": "Wikimedia Commons"
   },
   "confucius": {
-    "src": "assets/portraits/confucius.jpg",
+    "src": "assets/portraits/confucius.webp",
     "credit": "Wikimedia Commons"
   },
   "zhuangzi": {
-    "src": "assets/portraits/zhuangzi.jpg",
+    "src": "assets/portraits/zhuangzi.webp",
     "credit": "Wikimedia Commons"
   },
   "buddha": {
-    "src": "assets/portraits/buddha.jpg",
+    "src": "assets/portraits/buddha.webp",
     "credit": "Wikimedia Commons"
   },
   "socrates": {
-    "src": "assets/portraits/socrates.jpg",
+    "src": "assets/portraits/socrates.webp",
     "credit": "Wikimedia Commons"
   },
   "aristotle": {
-    "src": "assets/portraits/aristotle.jpg",
+    "src": "assets/portraits/aristotle.webp",
     "credit": "Wikimedia Commons"
   },
   "muhammad": {
-    "src": "assets/portraits/muhammad.jpg",
+    "src": "assets/portraits/muhammad.webp",
     "credit": "Wikimedia Commons"
   },
   "descartes": {
-    "src": "assets/portraits/descartes.jpg",
+    "src": "assets/portraits/descartes.webp",
     "credit": "Wikimedia Commons"
   },
   "kant": {
-    "src": "assets/portraits/kant.jpg",
+    "src": "assets/portraits/kant.webp",
     "credit": "Wikimedia Commons"
   },
   "adamsmith": {
-    "src": "assets/portraits/adamsmith.jpg",
+    "src": "assets/portraits/adamsmith.webp",
     "credit": "Wikimedia Commons"
   },
   "marx": {
-    "src": "assets/portraits/marx.jpg",
+    "src": "assets/portraits/marx.webp",
     "credit": "Wikimedia Commons"
   },
   "nietzsche": {
-    "src": "assets/portraits/nietzsche.jpg",
+    "src": "assets/portraits/nietzsche.webp",
     "credit": "Wikimedia Commons"
   },
   "archimedes": {
-    "src": "assets/portraits/archimedes.jpg",
+    "src": "assets/portraits/archimedes.webp",
     "credit": "Wikimedia Commons"
   },
   "cailun": {
-    "src": "assets/portraits/cailun.jpg",
+    "src": "assets/portraits/cailun.webp",
     "credit": "Wikimedia Commons"
   },
   "bisheng": {
-    "src": "assets/portraits/bisheng.jpg",
+    "src": "assets/portraits/bisheng.webp",
     "credit": "Wikimedia Commons"
   },
   "gutenberg": {
-    "src": "assets/portraits/gutenberg.jpg",
+    "src": "assets/portraits/gutenberg.webp",
     "credit": "Wikimedia Commons"
   },
   "watt": {
-    "src": "assets/portraits/watt.jpg",
+    "src": "assets/portraits/watt.webp",
     "credit": "Wikimedia Commons"
   },
   "edison": {
-    "src": "assets/portraits/edison.jpg",
+    "src": "assets/portraits/edison.webp",
     "credit": "Wikimedia Commons"
   },
   "tesla": {
-    "src": "assets/portraits/tesla.jpg",
+    "src": "assets/portraits/tesla.webp",
     "credit": "Wikimedia Commons"
   },
   "bell": {
-    "src": "assets/portraits/bell.jpg",
+    "src": "assets/portraits/bell.webp",
     "credit": "Wikimedia Commons"
   },
   "wright": {
-    "src": "assets/portraits/wright.jpg",
+    "src": "assets/portraits/wright.webp",
     "credit": "Wikimedia Commons"
   },
   "ford": {
-    "src": "assets/portraits/ford.jpg",
+    "src": "assets/portraits/ford.webp",
     "credit": "Wikimedia Commons"
   },
   "nobel": {
-    "src": "assets/portraits/nobel.jpg",
+    "src": "assets/portraits/nobel.webp",
     "credit": "Wikimedia Commons"
   },
   "timbl": {
-    "src": "assets/portraits/timbl.jpg",
+    "src": "assets/portraits/timbl.webp",
     "credit": "Wikimedia Commons"
   },
   "qinshihuang": {
-    "src": "assets/portraits/qinshihuang.jpg",
+    "src": "assets/portraits/qinshihuang.webp",
     "credit": "Wikimedia Commons"
   },
   "ashoka": {
-    "src": "assets/portraits/ashoka.jpg",
+    "src": "assets/portraits/ashoka.webp",
     "credit": "Wikimedia Commons"
   },
   "martinluther": {
-    "src": "assets/portraits/martinluther.jpg",
+    "src": "assets/portraits/martinluther.webp",
     "credit": "Wikimedia Commons"
   },
   "washington": {
-    "src": "assets/portraits/washington.jpg",
+    "src": "assets/portraits/washington.webp",
     "credit": "Wikimedia Commons"
   },
   "napoleon": {
-    "src": "assets/portraits/napoleon.jpg",
+    "src": "assets/portraits/napoleon.webp",
     "credit": "Wikimedia Commons"
   },
   "lincoln": {
-    "src": "assets/portraits/lincoln.jpg",
+    "src": "assets/portraits/lincoln.webp",
     "credit": "Wikimedia Commons"
   },
   "gandhi": {
-    "src": "assets/portraits/gandhi.jpg",
+    "src": "assets/portraits/gandhi.webp",
     "credit": "Wikimedia Commons"
   },
   "mlk": {
-    "src": "assets/portraits/mlk.jpg",
+    "src": "assets/portraits/mlk.webp",
     "credit": "Wikimedia Commons"
   },
   "mandela": {
-    "src": "assets/portraits/mandela.jpg",
+    "src": "assets/portraits/mandela.webp",
     "credit": "Wikimedia Commons"
   },
   "zhangqian": {
-    "src": "assets/portraits/zhangqian.jpg",
+    "src": "assets/portraits/zhangqian.webp",
     "credit": "Wikimedia Commons"
   },
   "marcopoloo": {
-    "src": "assets/portraits/marcopoloo.jpg",
+    "src": "assets/portraits/marcopoloo.webp",
     "credit": "Wikimedia Commons"
   },
   "zhenghe": {
-    "src": "assets/portraits/zhenghe.jpg",
+    "src": "assets/portraits/zhenghe.webp",
     "credit": "Wikimedia Commons"
   },
   "columbus": {
-    "src": "assets/portraits/columbus.jpg",
+    "src": "assets/portraits/columbus.webp",
     "credit": "Wikimedia Commons"
   },
   "armstrong": {
-    "src": "assets/portraits/armstrong.jpg",
+    "src": "assets/portraits/armstrong.webp",
     "credit": "Wikimedia Commons"
   },
   "davinci": {
-    "src": "assets/portraits/davinci.jpg",
+    "src": "assets/portraits/davinci.webp",
     "credit": "Wikimedia Commons"
   },
   "michelangelo": {
-    "src": "assets/portraits/michelangelo.jpg",
+    "src": "assets/portraits/michelangelo.webp",
     "credit": "Wikimedia Commons"
   },
   "shakespeare": {
-    "src": "assets/portraits/shakespeare.jpg",
+    "src": "assets/portraits/shakespeare.webp",
     "credit": "Wikimedia Commons"
   },
   "goethe": {
-    "src": "assets/portraits/goethe.jpg",
+    "src": "assets/portraits/goethe.webp",
     "credit": "Wikimedia Commons"
   },
   "libai": {
-    "src": "assets/portraits/libai.jpg",
+    "src": "assets/portraits/libai.webp",
     "credit": "Wikimedia Commons"
   },
   "beethoven": {
-    "src": "assets/portraits/beethoven.jpg",
+    "src": "assets/portraits/beethoven.webp",
     "credit": "Wikimedia Commons"
   },
   "bach": {
-    "src": "assets/portraits/bach.jpg",
+    "src": "assets/portraits/bach.webp",
     "credit": "Wikimedia Commons"
   },
   "mozart": {
-    "src": "assets/portraits/mozart.jpg",
+    "src": "assets/portraits/mozart.webp",
     "credit": "Wikimedia Commons"
   },
   "vangogh": {
-    "src": "assets/portraits/vangogh.jpg",
+    "src": "assets/portraits/vangogh.webp",
     "credit": "Wikimedia Commons"
   },
   "picasso": {
-    "src": "assets/portraits/picasso.jpg",
+    "src": "assets/portraits/picasso.webp",
     "credit": "Wikimedia Commons"
   },
   "nightingale": {
-    "src": "assets/portraits/nightingale.jpg",
+    "src": "assets/portraits/nightingale.webp",
     "credit": "Wikimedia Commons"
   },
   "dunant": {
-    "src": "assets/portraits/dunant.jpg",
+    "src": "assets/portraits/dunant.webp",
     "credit": "Wikimedia Commons"
   },
   "keller": {
-    "src": "assets/portraits/keller.jpg",
+    "src": "assets/portraits/keller.webp",
     "credit": "Wikimedia Commons"
   },
   "teresa": {
-    "src": "assets/portraits/teresa.jpg",
+    "src": "assets/portraits/teresa.webp",
     "credit": "Wikimedia Commons"
   },
   "borlaug": {
-    "src": "assets/portraits/borlaug.jpg",
+    "src": "assets/portraits/borlaug.webp",
     "credit": "Wikimedia Commons"
   },
   "eleanor": {
-    "src": "assets/portraits/eleanor.jpg",
+    "src": "assets/portraits/eleanor.webp",
     "credit": "Wikimedia Commons"
   },
   "malala": {
-    "src": "assets/portraits/malala.jpg",
+    "src": "assets/portraits/malala.webp",
     "credit": "Wikimedia Commons"
   },
   "euler": {
-    "src": "assets/portraits/euler.jpg",
+    "src": "assets/portraits/euler.webp",
     "credit": "Wikimedia Commons"
   },
   "gauss": {
-    "src": "assets/portraits/gauss.jpg",
+    "src": "assets/portraits/gauss.webp",
     "credit": "Wikimedia Commons"
   },
   "vonneumann": {
@@ -289,123 +289,123 @@ window.PORTRAITS = {
     "credit": "Wikimedia Commons"
   },
   "shannon": {
-    "src": "assets/portraits/shannon.jpg",
+    "src": "assets/portraits/shannon.webp",
     "credit": "Wikimedia Commons"
   },
   "schrodinger": {
-    "src": "assets/portraits/schrodinger.jpg",
+    "src": "assets/portraits/schrodinger.webp",
     "credit": "Wikimedia Commons"
   },
   "hubble": {
-    "src": "assets/portraits/hubble.jpg",
+    "src": "assets/portraits/hubble.webp",
     "credit": "Wikimedia Commons"
   },
   "qianxuesen": {
-    "src": "assets/portraits/qianxuesen.jpg",
+    "src": "assets/portraits/qianxuesen.webp",
     "credit": "Wikimedia Commons"
   },
   "yuanlongping": {
-    "src": "assets/portraits/yuanlongping.jpg",
+    "src": "assets/portraits/yuanlongping.webp",
     "credit": "Wikimedia Commons"
   },
   "mozi": {
-    "src": "assets/portraits/mozi.jpg",
+    "src": "assets/portraits/mozi.webp",
     "credit": "Wikimedia Commons"
   },
   "wangyangming": {
-    "src": "assets/portraits/wangyangming.jpg",
+    "src": "assets/portraits/wangyangming.webp",
     "credit": "Wikimedia Commons"
   },
   "augustine": {
-    "src": "assets/portraits/augustine.jpg",
+    "src": "assets/portraits/augustine.webp",
     "credit": "Wikimedia Commons"
   },
   "aquinas": {
-    "src": "assets/portraits/aquinas.jpg",
+    "src": "assets/portraits/aquinas.webp",
     "credit": "Wikimedia Commons"
   },
   "voltaire": {
-    "src": "assets/portraits/voltaire.jpg",
+    "src": "assets/portraits/voltaire.webp",
     "credit": "Wikimedia Commons"
   },
   "rousseau": {
-    "src": "assets/portraits/rousseau.jpg",
+    "src": "assets/portraits/rousseau.webp",
     "credit": "Wikimedia Commons"
   },
   "luban": {
-    "src": "assets/portraits/luban.jpg",
+    "src": "assets/portraits/luban.webp",
+    "credit": "Wikimedia Commons"
+  },
+  "zhangheng": {
+    "src": "assets/portraits/zhangheng.webp",
     "credit": "Wikimedia Commons"
   },
   "stephenson": {
-    "src": "assets/portraits/stephenson.jpg",
+    "src": "assets/portraits/stephenson.webp",
     "credit": "Wikimedia Commons"
   },
   "constantine": {
-    "src": "assets/portraits/constantine.jpg",
+    "src": "assets/portraits/constantine.webp",
     "credit": "Wikimedia Commons"
   },
   "tangtaizong": {
-    "src": "assets/portraits/tangtaizong.jpg",
+    "src": "assets/portraits/tangtaizong.webp",
     "credit": "Wikimedia Commons"
   },
   "churchill": {
-    "src": "assets/portraits/churchill.jpg",
+    "src": "assets/portraits/churchill.webp",
     "credit": "Wikimedia Commons"
   },
   "elizabethi": {
-    "src": "assets/portraits/elizabethi.jpg",
+    "src": "assets/portraits/elizabethi.webp",
     "credit": "Wikimedia Commons"
   },
   "fdr": {
-    "src": "assets/portraits/fdr.jpg",
+    "src": "assets/portraits/fdr.webp",
     "credit": "Wikimedia Commons"
   },
   "magellan": {
-    "src": "assets/portraits/magellan.jpg",
+    "src": "assets/portraits/magellan.webp",
     "credit": "Wikimedia Commons"
   },
   "dagama": {
-    "src": "assets/portraits/dagama.jpg",
+    "src": "assets/portraits/dagama.webp",
     "credit": "Wikimedia Commons"
   },
   "amundsen": {
-    "src": "assets/portraits/amundsen.jpg",
+    "src": "assets/portraits/amundsen.webp",
     "credit": "Wikimedia Commons"
   },
   "raphael": {
-    "src": "assets/portraits/raphael.jpg",
+    "src": "assets/portraits/raphael.webp",
     "credit": "Wikimedia Commons"
   },
   "dufu": {
-    "src": "assets/portraits/dufu.jpg",
+    "src": "assets/portraits/dufu.webp",
     "credit": "Wikimedia Commons"
   },
   "andersen": {
-    "src": "assets/portraits/andersen.jpg",
+    "src": "assets/portraits/andersen.webp",
     "credit": "Wikimedia Commons"
   },
   "beatles": {
-    "src": "assets/portraits/beatles.jpg",
+    "src": "assets/portraits/beatles.webp",
     "credit": "Wikimedia Commons"
   },
   "chaplin": {
-    "src": "assets/portraits/chaplin.jpg",
+    "src": "assets/portraits/chaplin.webp",
     "credit": "Wikimedia Commons"
   },
   "bethune": {
-    "src": "assets/portraits/bethune.jpg",
+    "src": "assets/portraits/bethune.webp",
     "credit": "Wikimedia Commons"
   },
   "yunus": {
-    "src": "assets/portraits/yunus.jpg",
+    "src": "assets/portraits/yunus.webp",
     "credit": "Wikimedia Commons"
   },
   "goodall": {
-    "src": "assets/portraits/goodall.jpg",
-    "credit": "Wikimedia Commons"
-  }
-  ,"zhangheng": {
-    "src": "assets/portraits/zhangheng.jpg",
+    "src": "assets/portraits/goodall.webp",
     "credit": "Wikimedia Commons"
   }
 };

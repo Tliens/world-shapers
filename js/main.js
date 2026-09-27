@@ -24,7 +24,42 @@
   var state = { cat: 'all', query: '', sort: 'year', view: 'grid' };
   var filtered = [];
   var currentModalIndex = -1;
+  var modalList = [];      /* 弹窗上/下一人的导航上下文 */
+  var pushedHash = false;  /* 本次弹窗是否由我们推入 history */
+  var baseHistLen = 0;     /* 打开弹窗前的 history 长度，关闭时一次退回 */
   var observer = null;
+
+  /* ---------- hash 路由 #/person/<id> ---------- */
+  function personFromHash() {
+    var m = /^#\/person\/([a-z0-9]+)$/i.exec(location.hash);
+    return m ? m[1] : null;
+  }
+
+  function setHash(id) {
+    var target = '#/person/' + id;
+    if (location.hash !== target) {
+      pushedHash = true;
+      location.hash = target;
+    }
+  }
+
+  function clearHash() {
+    pushedHash = false;
+    if (location.hash) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  }
+
+  function onHashChange() {
+    var id = personFromHash();
+    if (id && PEOPLE.some(function (p) { return p.id === id; })) {
+      var current = currentModalIndex >= 0 && modalList[currentModalIndex];
+      if (current && current.id === id && !$('#modal').classList.contains('hidden')) return; /* 已打开同一人 */
+      openModal(id, { fromHash: true });
+    } else if (!$('#modal').classList.contains('hidden')) {
+      closeModal({ skipHistory: true });
+    }
+  }
 
   /* ---------- 多语言取值 ---------- */
   function catName(key) { return T()['cat_' + key] || key; }
@@ -279,8 +314,8 @@
       var id = pill.getAttribute('data-vote');
       if (VOTES[id] !== undefined) pill.querySelector('.vcount').textContent = VOTES[id];
     });
-    if (currentModalIndex >= 0 && filtered[currentModalIndex]) {
-      updateModalVote(filtered[currentModalIndex]);
+    if (currentModalIndex >= 0 && modalList[currentModalIndex]) {
+      updateModalVote(modalList[currentModalIndex]);
     }
     if (state.sort === 'votes') render();
   }
@@ -368,7 +403,8 @@
   /* ---------- 卡片点击 ---------- */
   function bindCards(selector) {
     document.querySelectorAll(selector).forEach(function (el) {
-      el.addEventListener('click', function () {
+      el.addEventListener('click', function (e) {
+        if (e.target.closest('.vote-pill')) return; /* 投票按钮自己处理 */
         openModal(el.getAttribute('data-id'));
       });
       el.addEventListener('keydown', function (e) {
@@ -399,10 +435,16 @@
   }
 
   /* ---------- 弹窗 ---------- */
-  function openModal(id) {
+  function openModal(id, opts) {
+    opts = opts || {};
     var p = PEOPLE.find(function (x) { return x.id === id; });
     if (!p) return;
-    currentModalIndex = filtered.findIndex(function (x) { return x.id === id; });
+    /* 导航上下文：优先当前筛选结果，人物不在其中（如深链接）则用全量 */
+    var idx = filtered.findIndex(function (x) { return x.id === id; });
+    modalList = idx >= 0 ? filtered : PEOPLE;
+    currentModalIndex = modalList.findIndex(function (x) { return x.id === id; });
+    if ($('#modal').classList.contains('hidden')) baseHistLen = history.length;
+    if (!opts.fromHash) setHash(id);
 
     var modalCard = document.querySelector('.modal-card');
     modalCard.setAttribute('data-cat', p.cat);
@@ -461,27 +503,40 @@
 
   function updateModalNav() {
     var t = T();
-    var has = currentModalIndex >= 0 && filtered.length > 1;
+    var has = currentModalIndex >= 0 && modalList.length > 1;
     var prev = $('#m-prev'), next = $('#m-next');
     prev.disabled = !has || currentModalIndex <= 0;
-    next.disabled = !has || currentModalIndex >= filtered.length - 1;
+    next.disabled = !has || currentModalIndex >= modalList.length - 1;
     prev.textContent = (has && currentModalIndex > 0)
-      ? '← ' + personInfo(filtered[currentModalIndex - 1]).name
+      ? '← ' + personInfo(modalList[currentModalIndex - 1]).name
       : t.prev;
-    next.textContent = (has && currentModalIndex < filtered.length - 1)
-      ? personInfo(filtered[currentModalIndex + 1]).name + ' →'
+    next.textContent = (has && currentModalIndex < modalList.length - 1)
+      ? personInfo(modalList[currentModalIndex + 1]).name + ' →'
       : t.next;
   }
 
-  function closeModal() {
+  function closeModal(opts) {
+    opts = opts || {};
     $('#modal').classList.add('hidden');
     document.body.style.overflow = '';
+    if (!opts.skipHistory) {
+      if (pushedHash && personFromHash()) {
+        var delta = history.length - baseHistLen;
+        if (delta > 0) {
+          history.go(-delta); /* 一次性退回打开弹窗前的位置，hashchange 完成收尾 */
+        } else {
+          clearHash();
+        }
+      } else {
+        clearHash();
+      }
+    }
   }
 
   function step(dir) {
     var i = currentModalIndex + dir;
-    if (i >= 0 && i < filtered.length) {
-      openModal(filtered[i].id);
+    if (i >= 0 && i < modalList.length) {
+      openModal(modalList[i].id);
     }
   }
 
@@ -603,8 +658,8 @@
     $('#m-next').addEventListener('click', function () { step(1); });
 
     $('#m-vote').addEventListener('click', function () {
-      if (currentModalIndex >= 0 && filtered[currentModalIndex]) {
-        var url = voteUrl(filtered[currentModalIndex].id);
+      if (currentModalIndex >= 0 && modalList[currentModalIndex]) {
+        var url = voteUrl(modalList[currentModalIndex].id);
         if (url) window.open(url, '_blank');
       }
     });
@@ -621,11 +676,38 @@
     $('#lang-toggle').addEventListener('click', function () {
       LANG = LANG === 'zh' ? 'en' : 'zh';
       window.AppI18N.save(LANG);
-      closeModal();
+      closeModal({ skipHistory: true });
+      clearHash();
       renderStaticText();
       fillDynamicNumbers();
       renderFilters();
       render();
+    });
+
+    window.addEventListener('hashchange', onHashChange);
+
+    /* 手机端汉堡菜单 */
+    var navToggle = $('#nav-toggle');
+    var nav = document.querySelector('.nav');
+    navToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = nav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.textContent = open ? '✕' : '☰';
+    });
+    nav.querySelectorAll('a, button').forEach(function (el) {
+      el.addEventListener('click', function () {
+        nav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.textContent = '☰';
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== navToggle) {
+        nav.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.textContent = '☰';
+      }
     });
   }
 
@@ -640,4 +722,8 @@
   bind();
   animateStats();
   loadVoteCounts();
+
+  /* 深链接：#/person/<id> 直接打开详情 */
+  var hashId = personFromHash();
+  if (hashId) openModal(hashId, { fromHash: true });
 })();
