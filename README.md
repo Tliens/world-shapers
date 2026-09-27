@@ -2,7 +2,7 @@
 
 一个纯静态的人物主题网站：收录 69 位影响世界的科学家、思想家、发明家、领袖、探险家、艺术家与人道主义者，配有真实肖像封面与两段式详细生平，支持领域筛选、关键词搜索、时间轴纵览、Three.js 星空背景动效。**中英双语**：默认英文，检测到中国大陆时区/系统语言自动切换中文，右上角可手动切换并记忆；**默认夜间模式**。零运行时外部依赖（three.js 与肖像均已本地化）。
 
-**线上地址**：https://tliens.github.io/world-shapers/
+**线上地址**：https://world-shapers.kuige.me/
 
 ## 本地预览
 
@@ -27,7 +27,7 @@ gh repo create world-shapers --public --source=. --push
 gh api repos/{owner}/world-shapers/pages -X POST -f "source[branch]=main" -f "source[path]=/"
 ```
 
-一两分钟后即可访问：`https://tliens.github.io/world-shapers/`
+一两分钟后即可访问：`https://world-shapers.kuige.me/`
 
 ### 方式二：在网页上操作
 

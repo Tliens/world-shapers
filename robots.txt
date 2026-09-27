@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tliens.github.io/world-shapers/sitemap.xml
+Sitemap: https://world-shapers.kuige.me/sitemap.xml
