@@ -27,6 +27,7 @@
   var modalList = [];      /* 弹窗上/下一人的导航上下文 */
   var pushedHash = false;  /* 本次弹窗是否由我们推入 history */
   var baseHistLen = 0;     /* 打开弹窗前的 history 长度，关闭时一次退回 */
+  var lastFocused = null;  /* 弹窗打开前的焦点元素，关闭时归还 */
   var observer = null;
 
   /* ---------- hash 路由 #/person/<id> ---------- */
@@ -326,7 +327,10 @@
         try { localStorage.setItem('voteCache', JSON.stringify({ t: Date.now(), c: counts })); } catch (e) {}
         applyVoteCounts(counts);
       })
-      .catch(function () { /* 限流或离线：不显示票数，按钮仍可跳转 */ });
+      .catch(function () {
+        /* 限流或离线：退回过期缓存（若有），票数仍在只是略旧 */
+        if (cached && cached.c) applyVoteCounts(cached.c);
+      });
   }
 
   function applyVoteCounts(counts) {
@@ -348,6 +352,83 @@
     btn.disabled = !url;
     var n = VOTES[p.id];
     btn.textContent = T().vote_btn + (n !== undefined ? ' · ' + n : '');
+  }
+
+  /* ---------- 弹窗附加：维基原文 / 分享 / 相关人物 ---------- */
+  function wikiUrl(p) {
+    if (!p.wiki) return null;
+    var parts = p.wiki.split('/');
+    return 'https://' + parts[0] + '.wikipedia.org/wiki/' + encodeURIComponent(parts.slice(1).join('/'));
+  }
+
+  function shareUrl(p) {
+    return location.origin + location.pathname + '#/person/' + p.id;
+  }
+
+  function updateModalLinks(p) {
+    var t = T();
+    var wikiBtn = $('#m-wiki'), shareBtn = $('#m-share');
+    var wUrl = wikiUrl(p);
+    if (wikiBtn) {
+      wikiBtn.disabled = !wUrl;
+      wikiBtn.onclick = function () { var u = wikiUrl(p); if (u) window.open(u, '_blank'); };
+      wikiBtn.textContent = t.wiki_link;
+    }
+    if (shareBtn) {
+      shareBtn.textContent = t.share;
+      shareBtn.onclick = function () {
+        var data = { title: document.title, text: personInfo(p).name + ' — ' + personInfo(p).summary, url: shareUrl(p) };
+        if (navigator.share) {
+          navigator.share(data).catch(function () {});
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(data.url).then(function () {
+            shareBtn.textContent = t.share_copied;
+            setTimeout(function () { shareBtn.textContent = t.share; }, 1600);
+          }).catch(function () {});
+        }
+      };
+    }
+
+    /* 相关人物：同领域、年代最接近的四位 */
+    var relWrap = $('#m-related');
+    if (!relWrap) return;
+    var relList = $('#m-related-list');
+    var relTitle = $('#m-related-title');
+    var rel = PEOPLE.filter(function (x) { return x.cat === p.cat && x.id !== p.id; })
+      .sort(function (a, b) { return Math.abs(a.birth - p.birth) - Math.abs(b.birth - p.birth); })
+      .slice(0, 4);
+    if (relTitle) relTitle.textContent = t.related;
+    if (!rel.length) { relWrap.classList.add('hidden'); return; }
+    relWrap.classList.remove('hidden');
+    relList.innerHTML = rel.map(function (r) {
+      var src = portraitOf(r.id);
+      var face = src
+        ? '<img src="' + esc(src) + '" alt="" loading="lazy" />'
+        : '<span class="related-emoji">' + r.emoji + '</span>';
+      return '<button class="related-item" type="button" data-id="' + r.id + '" title="' + esc(personInfo(r).name) + '">' +
+        face + '<span class="related-name">' + esc(personInfo(r).name) + '</span></button>';
+    }).join('');
+    relList.querySelectorAll('.related-item').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openModal(btn.getAttribute('data-id'));
+      });
+    });
+  }
+
+  /* ---------- 今日人物（按日期轮换，每天一位） ---------- */
+  function fillTodayPerson() {
+    var btn = $('#today-person');
+    if (!btn || !PEOPLE.length) return;
+    var now = new Date();
+    var start = new Date(now.getFullYear(), 0, 0);
+    var day = Math.floor((now - start) / 864e5);
+    var p = PEOPLE[day % PEOPLE.length];
+    var info = personInfo(p);
+    btn.innerHTML = '<span class="today-label">' + esc(T().today_label) + '</span>' +
+      '<span class="today-name">' + p.emoji + ' ' + esc(info.name) + '</span>' +
+      '<span class="today-cta">' + esc(T().today_cta) + '</span>';
+    btn.classList.remove('hidden');
+    btn.onclick = function () { openModal(p.id); };
   }
 
   /* 图片加载完成后的淡入 */
@@ -517,9 +598,15 @@
 
     updateModalNav();
     updateModalVote(p);
+    updateModalLinks(p);
     $('#modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
     modalCard.scrollTop = 0;
+
+    /* 焦点管理：记住来源焦点并移到弹窗内 */
+    lastFocused = document.activeElement;
+    var closeBtn = modalCard.querySelector('.modal-close');
+    if (closeBtn) closeBtn.focus();
   }
 
   function updateModalNav() {
@@ -540,6 +627,8 @@
     opts = opts || {};
     $('#modal').classList.add('hidden');
     document.body.style.overflow = '';
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+    lastFocused = null;
     if (!opts.skipHistory) {
       if (pushedHash && personFromHash()) {
         var delta = history.length - baseHistLen;
@@ -692,10 +781,22 @@
     });
 
     document.addEventListener('keydown', function (e) {
-      if ($('#modal').classList.contains('hidden')) return;
-      if (e.key === 'Escape') closeModal();
-      if (e.key === 'ArrowLeft') step(-1);
-      if (e.key === 'ArrowRight') step(1);
+      var modal = $('#modal');
+      if (!modal || modal.classList.contains('hidden')) return;
+      if (e.key === 'Escape') { closeModal(); return; }
+      if (e.key === 'ArrowLeft') { step(-1); return; }
+      if (e.key === 'ArrowRight') { step(1); return; }
+      /* 焦点陷阱：Tab 在弹窗内循环 */
+      if (e.key === 'Tab') {
+        var focusables = modal.querySelectorAll('button:not(:disabled), [href], input, [tabindex="0"]');
+        if (!focusables.length) return;
+        var first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      }
     });
 
     on('#theme-toggle', 'click', toggleTheme);
@@ -750,6 +851,7 @@
   bind();
   animateStats();
   loadVoteCounts();
+  fillTodayPerson();
 
   /* 深链接：#/person/<id> 直接打开详情 */
   var hashId = personFromHash();

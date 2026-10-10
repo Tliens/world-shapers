@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/png" href="favicon.png?v=3">
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="css/style.css?v=11" />
+  <link rel="stylesheet" href="css/style.css?v=12" />
   <style>
 /* ── KuiGe 站群统一基座 ───────────────────── */
 :root{--kg-ink:#1f2430;--kg-sub:#6b7280;--kg-accent:#f2603c;--kg-line:#e8e6e1;--kg-bg:#faf9f7}
@@ -74,6 +74,7 @@ html[data-theme="dark"] .kg-nav a.kg-entry{background:#2c3444;color:#f2f5fb!impo
           </div>
           <button id="random-btn" class="btn-ghost" type="button">✨ 随机认识一位</button>
         </div>
+        <button id="today-person" class="today-pill hidden" type="button"></button>
         <div class="hero-stats" id="stats">
           <div class="stat"><b data-count="69">0</b><span>位人物</span></div>
           <div class="stat-sep" aria-hidden="true">·</div>
@@ -180,6 +181,14 @@ html[data-theme="dark"] .kg-nav a.kg-entry{background:#2c3444;color:#f2f5fb!impo
         <span id="m-quote"></span>
       </blockquote>
       <p class="m-credit" id="m-credit"></p>
+      <div class="m-links">
+        <button id="m-wiki" class="m-link-btn" type="button">📖 维基百科原文</button>
+        <button id="m-share" class="m-link-btn" type="button">🔗 分享</button>
+      </div>
+      <div class="m-related hidden" id="m-related">
+        <h4 id="m-related-title"></h4>
+        <div id="m-related-list" class="related-list"></div>
+      </div>
       <div class="modal-nav">
         <button id="m-vote" class="modal-vote" type="button" title="前往 GitHub 投票">👍 投票</button>
         <div class="modal-nav-pages">
@@ -190,14 +199,14 @@ html[data-theme="dark"] .kg-nav a.kg-entry{background:#2c3444;color:#f2f5fb!impo
     </div>
   </div>
 
-  <script src="js/vendor/three.min.js?v=11"></script>
-  <script src="js/three-bg.js?v=11"></script>
-  <script src="assets/portraits/portraits.js?v=11"></script>
-  <script src="js/i18n.js?v=11"></script>
-  <script src="js/data.js?v=11"></script>
-  <script src="js/data.en.js?v=11"></script>
-  <script src="js/highlights.js?v=11"></script>
-  <script src="js/vote-issues.js?v=11"></script>
-  <script src="js/main.js?v=11"></script>
+  <script src="js/vendor/three.min.js?v=12"></script>
+  <script src="js/three-bg.js?v=12"></script>
+  <script src="assets/portraits/portraits.js?v=12"></script>
+  <script src="js/i18n.js?v=12"></script>
+  <script src="js/data.js?v=12"></script>
+  <script src="js/data.en.js?v=12"></script>
+  <script src="js/highlights.js?v=12"></script>
+  <script src="js/vote-issues.js?v=12"></script>
+  <script src="js/main.js?v=12"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "948f2535a9dd4775a436c677b3c950e4"}'></script><!-- End Cloudflare Web Analytics --></body>
 </html>
