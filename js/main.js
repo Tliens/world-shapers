@@ -109,60 +109,81 @@
   }
 
   /* ---------- 静态 UI 文案 ---------- */
+  /* 逐元素容错写入：版面上缺哪个元素就跳过哪句文案，不中断整站 */
+  function setText(sel, txt) {
+    var el = document.querySelector(sel);
+    if (el) el.textContent = txt;
+  }
+  function setHTML(sel, html) {
+    var el = document.querySelector(sel);
+    if (el) el.innerHTML = html;
+  }
+
   function renderStaticText() {
     var t = T();
     document.documentElement.setAttribute('lang', LANG === 'en' ? 'en' : 'zh-CN');
     document.title = t.title;
 
-    document.querySelector('.brand').innerHTML =
-      '<span class="brand-star">✦</span>' + t.brand;
-    document.querySelector('.nav a[href="#explore"]').textContent = t.nav_people;
-    $('#nav-timeline').textContent = t.nav_timeline;
-    document.querySelector('.nav a[href="#about"]').textContent = t.nav_about;
+    setHTML('.brand', '<span class="brand-star">✦</span>' + t.brand);
+    setText('.nav a[href="#explore"]', t.nav_people);
+    setText('#nav-timeline', t.nav_timeline);
+    setText('.nav a[href="#about"]', t.nav_about);
 
     var themeBtn = $('#theme-toggle');
-    themeBtn.title = t.theme_title;
-    themeBtn.setAttribute('aria-label', t.theme_title);
+    if (themeBtn) {
+      themeBtn.title = t.theme_title;
+      themeBtn.setAttribute('aria-label', t.theme_title);
+    }
 
     var langBtn = $('#lang-toggle');
-    langBtn.textContent = LANG === 'en' ? '中' : 'EN';
-    langBtn.title = LANG === 'en' ? '切换到中文' : 'Switch to English';
+    if (langBtn) {
+      langBtn.textContent = LANG === 'en' ? '中' : 'EN';
+      langBtn.title = LANG === 'en' ? '切换到中文' : 'Switch to English';
+    }
 
-    document.querySelector('.hero h1').innerHTML = t.hero_h1;
-    document.querySelector('.lede').innerHTML = t.lede;
+    setHTML('.hero h1', t.hero_h1);
+    setHTML('.lede', t.lede);
 
     var search = $('#search');
-    search.placeholder = t.search_ph;
-    search.setAttribute('aria-label', t.search_aria);
-    $('#random-btn').textContent = t.random;
+    if (search) {
+      search.placeholder = t.search_ph;
+      search.setAttribute('aria-label', t.search_aria);
+    }
+    setText('#random-btn', t.random);
 
     var labels = document.querySelectorAll('#stats .stat span');
-    labels[0].textContent = t.stat_people;
-    labels[1].textContent = t.stat_fields;
-    labels[2].textContent = t.stat_years;
+    if (labels.length >= 3) {
+      labels[0].textContent = t.stat_people;
+      labels[1].textContent = t.stat_fields;
+      labels[2].textContent = t.stat_years;
+    }
 
-    document.querySelector('.sort-wrap span').textContent = t.sort_label;
-    $('#sort').options[0].textContent = t.sort_year;
-    $('#sort').options[1].textContent = t.sort_votes;
-    $('#sort').options[2].textContent = t.sort_cat;
+    setText('.sort-wrap span', t.sort_label);
+    var sortSel = $('#sort');
+    if (sortSel) {
+      sortSel.options[0].textContent = t.sort_year;
+      sortSel.options[1].textContent = t.sort_votes;
+      sortSel.options[2].textContent = t.sort_cat;
+    }
 
-    $('#view-grid').textContent = t.view_grid;
-    $('#view-timeline').textContent = t.view_timeline;
+    setText('#view-grid', t.view_grid);
+    setText('#view-timeline', t.view_timeline);
 
-    document.querySelector('.empty p:nth-of-type(2)').textContent = t.empty;
-    $('#clear-search').textContent = t.clear;
+    setText('.empty p:nth-of-type(2)', t.empty);
+    setText('#clear-search', t.clear);
 
     var cards = document.querySelectorAll('.about-card');
-    cards[0].querySelector('h3').innerHTML = t.about1_t;
-    cards[0].querySelector('p').innerHTML = t.about1_p;
-    cards[1].querySelector('h3').innerHTML = t.about2_t;
-    cards[1].querySelector('p').innerHTML = t.about2_p;
-    cards[2].querySelector('h3').innerHTML = t.about3_t;
-    cards[2].querySelector('p').innerHTML = t.about3_p;
+    if (cards.length >= 3) {
+      cards[0].querySelector('h3').innerHTML = t.about1_t;
+      cards[0].querySelector('p').innerHTML = t.about1_p;
+      cards[1].querySelector('h3').innerHTML = t.about2_t;
+      cards[1].querySelector('p').innerHTML = t.about2_p;
+      cards[2].querySelector('h3').innerHTML = t.about3_t;
+      cards[2].querySelector('p').innerHTML = t.about3_p;
+    }
 
-    document.querySelector('.footer-brand').innerHTML =
-      '<span class="brand-star">✦</span> ' + t.footer_brand;
-    document.querySelector('.footer-note').textContent = t.footer_note;
+    setHTML('.footer-brand', '<span class="brand-star">✦</span> ' + t.footer_brand);
+    setText('.footer-note', t.footer_note);
   }
 
   /* ---------- 筛选 / 排序 ---------- */
@@ -621,31 +642,37 @@
 
   /* ---------- 事件绑定 ---------- */
   function bind() {
-    $('#search').addEventListener('input', function (e) {
+    function on(sel, evt, fn) {
+      var el = document.querySelector(sel);
+      if (el) el.addEventListener(evt, fn);
+    }
+
+    on('#search', 'input', function (e) {
       state.query = e.target.value;
       render();
     });
 
-    $('#sort').addEventListener('change', function (e) {
+    on('#sort', 'change', function (e) {
       state.sort = e.target.value;
       render();
     });
 
-    $('#view-grid').addEventListener('click', function () { setView('grid', false); });
-    $('#view-timeline').addEventListener('click', function () { setView('timeline', false); });
-    $('#nav-timeline').addEventListener('click', function () { setView('timeline', true); });
+    on('#view-grid', 'click', function () { setView('grid', false); });
+    on('#view-timeline', 'click', function () { setView('timeline', false); });
+    on('#nav-timeline', 'click', function () { setView('timeline', true); });
 
-    $('#random-btn').addEventListener('click', function () {
+    on('#random-btn', 'click', function () {
       var pool = PEOPLE;
       if (state.cat !== 'all') pool = PEOPLE.filter(function (p) { return p.cat === state.cat; });
       var pick = pool[Math.floor(Math.random() * pool.length)];
       openModal(pick.id);
     });
 
-    $('#clear-search').addEventListener('click', function () {
+    on('#clear-search', 'click', function () {
       state.query = '';
       state.cat = 'all';
-      $('#search').value = '';
+      var s = $('#search');
+      if (s) s.value = '';
       renderFilters();
       render();
     });
@@ -654,10 +681,10 @@
       el.addEventListener('click', closeModal);
     });
 
-    $('#m-prev').addEventListener('click', function () { step(-1); });
-    $('#m-next').addEventListener('click', function () { step(1); });
+    on('#m-prev', 'click', function () { step(-1); });
+    on('#m-next', 'click', function () { step(1); });
 
-    $('#m-vote').addEventListener('click', function () {
+    on('#m-vote', 'click', function () {
       if (currentModalIndex >= 0 && modalList[currentModalIndex]) {
         var url = voteUrl(modalList[currentModalIndex].id);
         if (url) window.open(url, '_blank');
@@ -671,9 +698,9 @@
       if (e.key === 'ArrowRight') step(1);
     });
 
-    $('#theme-toggle').addEventListener('click', toggleTheme);
+    on('#theme-toggle', 'click', toggleTheme);
 
-    $('#lang-toggle').addEventListener('click', function () {
+    on('#lang-toggle', 'click', function () {
       LANG = LANG === 'zh' ? 'en' : 'zh';
       window.AppI18N.save(LANG);
       closeModal({ skipHistory: true });
@@ -689,6 +716,7 @@
     /* 手机端汉堡菜单 */
     var navToggle = $('#nav-toggle');
     var nav = document.querySelector('.nav');
+    if (!navToggle || !nav) return;
     navToggle.addEventListener('click', function (e) {
       e.stopPropagation();
       var open = nav.classList.toggle('open');

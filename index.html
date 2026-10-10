@@ -11,11 +11,14 @@
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/png" href="favicon.png?v=3">
   <link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
-  <link rel="stylesheet" href="css/style.css?v=10" />
+  <link rel="stylesheet" href="css/style.css?v=11" />
   <style>
 /* ── KuiGe 站群统一基座 ───────────────────── */
 :root{--kg-ink:#1f2430;--kg-sub:#6b7280;--kg-accent:#f2603c;--kg-line:#e8e6e1;--kg-bg:#faf9f7}
 .kg-top{position:sticky;top:0;z-index:60;background:rgba(250,249,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--kg-line)}
+html[data-theme="dark"]{--kg-ink:#e9edf5;--kg-sub:#98a2b3;--kg-line:rgba(255,255,255,.12);--kg-bg:#10141c}
+html[data-theme="dark"] .kg-top{background:rgba(13,17,26,.86)}
+html[data-theme="dark"] .kg-nav a.kg-entry{background:#2c3444;color:#f2f5fb!important}
 .kg-top-in{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .kg-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--kg-ink);font-weight:700;font-size:17px}
 .kg-brand img{width:32px;height:32px;border-radius:9px;display:block}
@@ -23,8 +26,8 @@
 .kg-nav{display:flex;align-items:center;gap:14px;font-size:14px}
 .kg-nav a{color:var(--kg-sub);text-decoration:none}
 .kg-nav a:hover{color:var(--kg-ink)}
-.kg-entry{background:var(--kg-ink);color:#fff!important;padding:6px 14px;border-radius:999px;text-decoration:none;font-size:13px}
-.kg-entry:hover{background:var(--kg-accent)}
+.kg-nav a.kg-entry{background:var(--kg-ink);color:#fff!important;padding:6px 14px;border-radius:999px;text-decoration:none;font-size:13px}
+.kg-nav a.kg-entry:hover{background:var(--kg-accent)}
 .kg-foot{background:var(--kg-bg);border-top:1px solid var(--kg-line);color:var(--kg-sub);font-size:13px;margin-top:0}
 .kg-foot-in{max-width:1120px;margin:0 auto;padding:36px 20px 28px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
 .kg-foot img{width:44px;height:44px;border-radius:12px;margin-bottom:2px}
@@ -48,7 +51,7 @@
         <a href="#explore">人物</a>
         <button id="nav-timeline" class="nav-btn" type="button">时间线</button>
         <a href="#about">关于</a>
-        <a class="kg-entry" href="https://icongems.kuige.me/" target="_blank" rel="noopener">IconGems · 免费图标库</a>
+        <a class="kg-entry" href="https://kuige.me/" target="_blank" rel="noopener">魁歌 · 全部作品</a>
       </nav>
       <button id="lang-toggle" class="lang-toggle" type="button" title="切换语言 / Switch language" aria-label="切换语言 / 切换语言">EN</button>
       <button id="theme-toggle" class="theme-toggle" type="button" title="切换深浅色" aria-label="切换深浅色">🌙</button>
@@ -187,14 +190,14 @@
     </div>
   </div>
 
-  <script src="js/vendor/three.min.js?v=10"></script>
-  <script src="js/three-bg.js?v=10"></script>
-  <script src="assets/portraits/portraits.js?v=10"></script>
-  <script src="js/i18n.js?v=10"></script>
-  <script src="js/data.js?v=10"></script>
-  <script src="js/data.en.js?v=10"></script>
-  <script src="js/highlights.js?v=10"></script>
-  <script src="js/vote-issues.js?v=10"></script>
-  <script src="js/main.js?v=10"></script>
+  <script src="js/vendor/three.min.js?v=11"></script>
+  <script src="js/three-bg.js?v=11"></script>
+  <script src="assets/portraits/portraits.js?v=11"></script>
+  <script src="js/i18n.js?v=11"></script>
+  <script src="js/data.js?v=11"></script>
+  <script src="js/data.en.js?v=11"></script>
+  <script src="js/highlights.js?v=11"></script>
+  <script src="js/vote-issues.js?v=11"></script>
+  <script src="js/main.js?v=11"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "948f2535a9dd4775a436c677b3c950e4"}'></script><!-- End Cloudflare Web Analytics --></body>
 </html>
